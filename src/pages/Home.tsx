@@ -1,8 +1,12 @@
+import { Container } from "@mui/material"
+
+import Header from "../containers/Header"
+
 const Home = () => {
   return (
-    <div>
-      
-    </div>
+    <Container>
+      <Header />
+    </Container>
   )
 }
 
