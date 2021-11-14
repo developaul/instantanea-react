@@ -4,6 +4,7 @@ const SearchInput = () => {
   return (
     <TextField
       size="small"
+      color="secondary"
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
