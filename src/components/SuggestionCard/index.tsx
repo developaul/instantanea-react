@@ -1,6 +1,6 @@
 import { Avatar, Button, Grid, Typography } from "@mui/material"
 
-const ShortUserCard = () => {
+const SuggestionCard = () => {
   return (
     <Grid
       alignItems="center"
@@ -12,7 +12,7 @@ const ShortUserCard = () => {
           <Grid item>
             <Avatar
               alt="Paul Chávez"
-              sx={{ width: 48, height: 48 }}
+              sx={{ width: 32, height: 32 }}
             >
               P
             </Avatar>
@@ -23,7 +23,7 @@ const ShortUserCard = () => {
               Paul
             </Typography>
             <Typography>
-              developaul
+              sugerencia para ti
             </Typography>
           </Grid>
         </Grid>
@@ -34,11 +34,11 @@ const ShortUserCard = () => {
           color="primary"
           variant="text"
         >
-          Cambiar
+          Seguir
         </Button>
       </Grid>
     </Grid>
   )
 }
 
-export default ShortUserCard
+export default SuggestionCard
