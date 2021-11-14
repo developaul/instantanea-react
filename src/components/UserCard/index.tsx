@@ -1,6 +1,10 @@
-import { Avatar, Button, Grid, Typography } from "@mui/material"
+import { Avatar, Button, Grid, Typography, Theme } from '@mui/material';
+import { makeStyles } from "@mui/styles"
 
 const UserCard = () => {
+
+  const classes = useStyles()
+
   return (
     <Grid
       alignItems="center"
@@ -11,6 +15,7 @@ const UserCard = () => {
         <Grid container>
           <Grid item>
             <Avatar
+              className={classes.avatar}
               alt="Paul Chávez"
               sx={{ width: 48, height: 48 }}
             >
@@ -19,10 +24,13 @@ const UserCard = () => {
           </Grid>
 
           <Grid item>
-            <Typography variant="h6">
+            <Typography variant="subtitle2">
               Paul
             </Typography>
-            <Typography>
+            <Typography
+              className={classes.subTitle2}
+              variant="body2"
+            >
               developaul
             </Typography>
           </Grid>
@@ -32,7 +40,6 @@ const UserCard = () => {
       <Grid item>
         <Button
           color="primary"
-          variant="text"
         >
           Cambiar
         </Button>
@@ -40,5 +47,14 @@ const UserCard = () => {
     </Grid>
   )
 }
+
+const useStyles = makeStyles(({ spacing, palette }: Theme) => ({
+  avatar: {
+    marginRight: spacing(1)
+  },
+  subTitle2: {
+    color: palette.secondary[900]
+  }
+}), { name: 'UserCard' })
 
 export default UserCard
