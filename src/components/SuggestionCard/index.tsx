@@ -6,6 +6,7 @@ const SuggestionCard = () => {
 
   return (
     <Grid
+      className={classes.container}
       alignItems="center"
       justifyContent="space-between"
       container
@@ -28,7 +29,7 @@ const SuggestionCard = () => {
               Paul
             </Typography>
             <Typography
-              className={classes.subTitle2}
+              className={classes.secondary300}
               variant="body2">
               sugerencia para ti
             </Typography>
@@ -49,11 +50,14 @@ const SuggestionCard = () => {
 }
 
 const useStyles = makeStyles(({ spacing, palette }: Theme) => ({
+  container: {
+    marginTop: spacing(3.5)
+  },
   avatar: {
     marginRight: spacing(1)
   },
-  subTitle2: {
-    color: palette.secondary[900]
+  secondary300: {
+    color: palette.secondary[300]
   }
 }), { name: 'SuggestionCard' })
 

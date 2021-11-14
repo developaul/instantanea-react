@@ -28,7 +28,7 @@ const UserCard = () => {
               Paul
             </Typography>
             <Typography
-              className={classes.subTitle2}
+              className={classes.secondary300}
               variant="body2"
             >
               developaul
@@ -52,8 +52,8 @@ const useStyles = makeStyles(({ spacing, palette }: Theme) => ({
   avatar: {
     marginRight: spacing(1)
   },
-  subTitle2: {
-    color: palette.secondary[900]
+  secondary300: {
+    color: palette.secondary[300]
   }
 }), { name: 'UserCard' })
 

@@ -28,7 +28,6 @@ const SuggestionList = () => {
       </Grid>
 
       <Grid
-        className={classes.suggestionCards}
         item>
         {suggestionList.map((suggestion) => (
           <SuggestionCard key={suggestion} />
@@ -40,13 +39,10 @@ const SuggestionList = () => {
 
 const useStyles = makeStyles(({ spacing, palette }: Theme) => ({
   container: {
-    marginTop: spacing(3)
+    marginTop: spacing(4)
   },
   subTitle1: {
-    color: palette.secondary[900]
-  },
-  suggestionCards: {
-    paddingTop: spacing(2),
+    color: palette.secondary[500],
   }
 }), { name: 'SuggestionList' })
 
