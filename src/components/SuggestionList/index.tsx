@@ -1,4 +1,5 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid, Theme, Typography } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
 import SuggestionCard from '../SuggestionCard';
 
@@ -10,17 +11,25 @@ const suggestionList = [
 ]
 
 const SuggestionList = () => {
+
+  const classes = useStyles()
+
   return (
     <Grid
+      className={classes.container}
       direction="column"
       container>
       <Grid item>
-        <Typography>
+        <Typography
+          className={classes.subTitle1}
+          variant="subtitle1">
           Sugerencia para ti
         </Typography>
       </Grid>
 
-      <Grid item>
+      <Grid
+        className={classes.suggestionCards}
+        item>
         {suggestionList.map((suggestion) => (
           <SuggestionCard key={suggestion} />
         ))}
@@ -28,5 +37,17 @@ const SuggestionList = () => {
     </Grid>
   )
 }
+
+const useStyles = makeStyles(({ spacing, palette }: Theme) => ({
+  container: {
+    marginTop: spacing(3)
+  },
+  subTitle1: {
+    color: palette.secondary[900]
+  },
+  suggestionCards: {
+    paddingTop: spacing(2),
+  }
+}), { name: 'SuggestionList' })
 
 export default SuggestionList
