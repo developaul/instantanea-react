@@ -1,7 +1,7 @@
 import { Grid, Theme } from "@mui/material"
 import { makeStyles } from "@mui/styles"
 
-import ShortUserCard from "../../components/ShortUserCard"
+import UserCard from "../../components/UserCard"
 import SuggestionList from "../../components/SuggestionList"
 
 const Aside = () => {
@@ -15,7 +15,7 @@ const Aside = () => {
       className={classes.container}
     >
       <Grid item >
-        <ShortUserCard />
+        <UserCard />
       </Grid>
 
       <Grid item >

@@ -11,15 +11,19 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Suspense fallback={'loading...'}>
-          {routes.map(({path, Component}) => (
-            <Route
-              exact
-              path={path}
-              component={Component}
-            />
-          ))}
-        </Suspense>
+        {routes.map(({ path, Component }) => (
+          <Route
+            exact
+            path={path}
+            render={() => (
+              <Suspense
+                fallback={'loading...'}
+              >
+                <Component />
+              </Suspense>
+            )}
+          />
+        ))}
       </Switch>
     </BrowserRouter>
   )

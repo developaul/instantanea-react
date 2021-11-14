@@ -1,11 +1,6 @@
-import { lazy, LazyExoticComponent } from "react"
+import { lazy } from "react"
 
-type JSXComponent = () => JSX.Element
-
-interface Route {
-  path: string
-  Component: LazyExoticComponent<JSXComponent> | JSXComponent
-}
+import { Route } from '../interfaces';
 
 const Home = lazy(() => import( /* webpackChunkName: "Home" */ '../pages/Home'))
 

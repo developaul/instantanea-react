@@ -1,6 +1,6 @@
 import { Avatar, Button, Grid, Typography } from "@mui/material"
 
-const ShortUserCard = () => {
+const UserCard = () => {
   return (
     <Grid
       alignItems="center"
@@ -41,4 +41,4 @@ const ShortUserCard = () => {
   )
 }
 
-export default ShortUserCard
+export default UserCard
