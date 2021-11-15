@@ -10,6 +10,7 @@ import {
   IconButton,
   InputAdornment,
   InputBase,
+  Theme,
   Typography,
 } from "@mui/material"
 import {
@@ -72,25 +73,37 @@ const Publication = () => {
         </Grid>
       </CardActions>
 
-      <CardContent>
+      <CardContent
+        className={classes.cardContentRoot}
+      >
         <Typography variant="subtitle1">
           49,643 Me gusta
         </Typography>
 
-        <Typography variant="body2" color="text.secondary">
-          <Typography component='strong'>
-            Wendy
-          </Typography>
+        <Typography
+          variant="subtitle1"
+          component='strong'>
+          Wendy&nbsp;
+        </Typography>
+        <Typography
+          component="span"
+          className={classes.black}
+          variant="body1"
+        >
           This impressive paella is a perfect party dish and a fun meal to cook
           together with your guests. Add 1 cup of frozen peas along with the mussels,
           if you like.
         </Typography>
 
-        <Typography variant="body2">
+        <Typography
+          className={classes.quantityComments}
+          variant="body2">
           Ver los 269 comentarios
         </Typography>
 
-        <Typography variant="body2">
+        <Typography
+          className={classes.secondary300}
+          variant="caption">
           Hace 31 minutos
         </Typography>
       </CardContent>
@@ -121,9 +134,21 @@ const Publication = () => {
   )
 }
 
-const useStyles = makeStyles(() => ({
-  flexEnd: {
-    justifySelf: 'flex-end'
+const useStyles = makeStyles(({ palette, spacing }: Theme) => ({
+  secondary300: {
+    color: palette.secondary[300]
+  },
+  quantityComments: {
+    color: palette.secondary[500],
+    paddingTop: spacing(1)
+  },
+  black: {
+    color: palette.common.black
+  },
+  cardContentRoot: {
+    '&.MuiCardContent-root': {
+      paddingTop: spacing(0)
+    }
   }
 }), { name: 'Publication' })
 
