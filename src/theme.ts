@@ -71,6 +71,14 @@ const theme = createTheme({
           fontWeight: 700
         }
       }
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          border: '1px solid #dcdcdc',
+          boxShadow: 'unset'
+        }
+      }
     }
   },
 });

@@ -40,7 +40,7 @@ const Aside = () => {
 
 const useStyles = makeStyles(({ spacing, palette }: Theme) => ({
   container: {
-    padding: spacing(6.5, 0, 0, 1.5)
+    padding: spacing(6.5, 0, 0, 2)
   },
   creditsText: {
     color: palette.secondary[200],

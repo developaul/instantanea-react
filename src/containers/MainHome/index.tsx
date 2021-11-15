@@ -16,8 +16,11 @@ const MainHome = () => {
           <Grid
             className={classes.subContainer}
             container
+            spacing={2}
             direction='column' >
-            <Grid item>
+            <Grid
+              width='100%'
+              item>
               <Stories />
             </Grid>
             <Grid item>
