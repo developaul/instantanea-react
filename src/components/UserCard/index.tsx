@@ -1,5 +1,7 @@
-import { Avatar, Button, Grid, Typography, Theme } from '@mui/material';
+import { Button, Grid, Typography, Theme } from '@mui/material';
 import { makeStyles } from "@mui/styles"
+
+import { Avatar } from '../Avatar'
 
 const UserCard = () => {
 
@@ -15,12 +17,14 @@ const UserCard = () => {
         <Grid container>
           <Grid item>
             <Avatar
+              userName='developaul'
+              thereStories={true}
               className={classes.avatar}
-              alt="Paul Chávez"
-              sx={{ width: 48, height: 48 }}
-            >
-              P
-            </Avatar>
+              avatarProps={{
+                alt: "Paul Chávez",
+                sx: { width: 48, height: 48 }
+              }}
+            />
           </Grid>
 
           <Grid item>
@@ -44,7 +48,7 @@ const UserCard = () => {
           Cambiar
         </Button>
       </Grid>
-    </Grid>
+    </Grid >
   )
 }
 
