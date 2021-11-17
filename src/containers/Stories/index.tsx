@@ -1,4 +1,4 @@
-import { Card, CardContent, Theme } from "@mui/material"
+import { Card, Theme } from "@mui/material"
 import { makeStyles } from "@mui/styles";
 import Slider from "react-slick";
 
