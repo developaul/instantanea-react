@@ -18,7 +18,7 @@ const UserCard = () => {
           <Grid item>
             <Avatar
               userName='developaul'
-              thereStories={true}
+              thereStories={false}
               className={classes.avatar}
               avatarProps={{
                 alt: "Paul Chávez",

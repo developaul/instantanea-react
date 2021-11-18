@@ -11,7 +11,11 @@ interface CustomAvatarProps {
   avatarProps: AvatarProps
   userName: string
   thereStories: boolean
-  className: string
+  className?: string
+}
+
+interface StyleProps {
+  thereStories: boolean
 }
 
 export const Avatar = ({
@@ -42,12 +46,13 @@ export const Avatar = ({
   )
 }
 
-const useStyles = makeStyles(({ spacing, palette }: Theme) => ({
+const useStyles = makeStyles(({ spacing, palette, shadows }: Theme) => ({
   container: {
     cursor: 'pointer',
     borderRadius: '100%',
     padding: spacing(0.25),
-    background: ({ thereStories }: { thereStories: boolean }) => thereStories
+    boxShadow: ({ thereStories }: StyleProps) => thereStories ? shadows[0] : shadows[2],
+    background: ({ thereStories }: StyleProps) => thereStories
       ? 'radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%)'
       : palette.common.white
   }
