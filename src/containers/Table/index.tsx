@@ -5,6 +5,7 @@ import TableMenu from "../../components/TableMenu"
 
 import { defaultMenuItems } from "../../utils/constans"
 import { MenuItem } from "../../interfaces"
+import TableContent from "../../components/TableContent"
 
 const Table = () => {
   const [menuItemActive, setMenuItemActive] = useState<MenuItem>(() => defaultMenuItems[0])
@@ -16,6 +17,7 @@ const Table = () => {
   return (
     <Container>
       <Grid
+        rowSpacing={2}
         direction='column'
         container
         xs
@@ -29,8 +31,8 @@ const Table = () => {
             menuItemActive={menuItemActive}
           />
         </Grid>
-        <Grid item>
-
+        <Grid item xs>
+          <TableContent />
         </Grid>
       </Grid>
     </Container>

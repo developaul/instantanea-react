@@ -11,3 +11,9 @@ export interface MenuItem {
   _id: string
   label: string
 }
+
+export interface ShortPublication {
+  _id: string
+  media: string
+  title: string
+}

@@ -1,8 +1,12 @@
+import Gallery from "../Gallery"
+
+import { shortPublications } from "../../mocks"
+
 const TableContent = () => {
   return (
-    <div>
-      table content
-    </div>
+    <Gallery
+      publications={shortPublications}
+    />
   )
 }
 

@@ -36,3 +36,37 @@ export const stories = [
     _id: 10,
   }
 ]
+
+export const shortPublications = [
+  {
+    _id: '1',
+    media: 'https://images.unsplash.com/photo-1555099962-4199c345e5dd',
+    title: 'Programming'
+  },
+  {
+    _id: '2',
+    media: 'https://images.unsplash.com/photo-1555099962-4199c345e5dd',
+    title: 'Programming'
+  },
+  {
+    _id: '3',
+    media: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4',
+    title: 'Programming'
+  },
+  {
+    _id: '4',
+    media: 'https://images.unsplash.com/photo-1555099962-4199c345e5dd',
+    title: 'Programming'
+  },
+  {
+    _id: '5',
+    media: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4',
+    title: 'Programming'
+  },
+  {
+    _id: '6',
+    media: 'https://images.unsplash.com/photo-1555099962-4199c345e5dd',
+    title: 'Programming'
+  },
+
+]
