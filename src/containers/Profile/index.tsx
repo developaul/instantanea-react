@@ -33,8 +33,8 @@ const Profile = () => {
 
 const useStyles = makeStyles(({ spacing }: Theme) => ({
   container: {
-    paddingTop: spacing(4),
-    paddingBottom: spacing(2)
+    paddingTop: spacing(5),
+    paddingBottom: spacing(4)
   }
 }), { name: 'Profile' })
 
