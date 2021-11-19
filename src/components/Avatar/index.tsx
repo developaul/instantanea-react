@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom'
 import clsx from 'clsx'
 
 interface CustomAvatarProps {
-  avatarProps: AvatarProps
+  avatarProps?: AvatarProps
   userName: string
   thereStories: boolean
   className?: string
@@ -18,7 +18,7 @@ interface StyleProps {
   thereStories: boolean
 }
 
-export const Avatar = ({
+const Avatar = ({
   userName,
   thereStories,
   className,
@@ -57,3 +57,5 @@ const useStyles = makeStyles(({ spacing, palette, shadows }: Theme) => ({
       : palette.common.white
   }
 }), { name: 'Avatar' })
+
+export default Avatar

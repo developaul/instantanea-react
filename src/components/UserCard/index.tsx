@@ -1,7 +1,7 @@
 import { Button, Grid, Typography, Theme } from '@mui/material';
 import { makeStyles } from "@mui/styles"
 
-import { Avatar } from '../Avatar'
+import Avatar from '../Avatar'
 
 const UserCard = () => {
 
