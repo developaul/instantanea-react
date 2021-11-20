@@ -1,106 +1,51 @@
 import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
   Container,
   Grid,
-  Divider,
-  Typography,
-  TextField,
-  CardActions
+  Theme,
 } from "@mui/material"
+import { makeStyles } from "@mui/styles"
 
-import FormFooter from "../FormFooter"
+import FormFooter from "../../components/FormFooter"
+import Form from '../../components/LoginForm'
 
 import { FormFooterTypes } from "../../interfaces"
 
 const LoginForm = () => {
+  const classes = useStyles()
+
   return (
-    <Container maxWidth={'xs'}>
+    <Container
+      maxWidth={'xs'}
+      className={classes.container}
+    >
       <Grid
         direction='column'
         rowGap={2}
-        container>
+        container
+      >
         <Grid
           width='100%'
-          item>
-          <Card>
-            <CardHeader
-              disableTypography
-              title={
-                <img src='assets/logo.png' alt='Instantanea' />
-              }
-            />
-            <CardContent>
-              <Grid
-                rowGap={2}
-                direction='column'
-                container>
-                <Grid
-                  rowGap={1}
-                  direction='column'
-                  container
-                  item
-                >
-                  <Grid item>
-                    <TextField
-                      size='small'
-                      fullWidth
-                      placeholder='Teléfono, usuario o correo electrónico'
-                    />
-                  </Grid>
-                  <Grid item>
-                    <TextField
-                      size='small'
-                      fullWidth
-                      placeholder='Contraseña'
-                    />
-                  </Grid>
-                </Grid>
-
-                <Grid item>
-                  <Button
-                    fullWidth
-                    variant='contained'
-                  >
-                    Iniciar Sesión
-                  </Button>
-                </Grid>
-
-                <Grid item>
-                  <Divider>
-                    <Typography>
-                      O
-                    </Typography>
-                  </Divider>
-                </Grid>
-              </Grid>
-            </CardContent>
-            <CardActions>
-              <Grid
-                rowGap={1}
-                alignItems='center'
-                direction='column'
-                container>
-                <Grid item>
-                  <Typography>Iniciar sesión con Facebook</Typography>
-                </Grid>
-                <Grid>
-                  <Typography>¿Olvidaste tu contraseña?</Typography>
-                </Grid>
-              </Grid>
-            </CardActions>
-          </Card>
+          item
+        >
+          <Form />
         </Grid>
         <Grid
           width='100%'
-          item>
-          <FormFooter type={FormFooterTypes.login} />
+          item
+        >
+          <FormFooter
+            type={FormFooterTypes.login}
+          />
         </Grid>
       </Grid>
     </Container>
   )
 }
+
+const useStyles = makeStyles(({ spacing }: Theme) => ({
+  container: {
+    marginTop: spacing(6)
+  }
+}), { name: 'LoginForm' })
 
 export default LoginForm
