@@ -17,3 +17,8 @@ export interface ShortPublication {
   media: string
   title: string
 }
+
+export enum FormFooterTypes {
+  login = 'login',
+  register = 'register'
+}
