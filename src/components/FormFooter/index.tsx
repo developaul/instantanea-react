@@ -38,7 +38,7 @@ const useStyles = makeStyles(({ spacing }: Theme) => ({
     justifyContent: 'center'
   },
   infoText: {
-    marginRight: spacing(0.5)
+    paddingRight: spacing(0.5)
   },
   actionText: {
     textDecoration: 'none'

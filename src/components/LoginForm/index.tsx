@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import {
   Button,
   Card,
@@ -10,9 +11,37 @@ import {
   Typography
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import { useSnackbar } from 'notistack'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+
+import { useAuthenticateUser } from '../../apollo/user/hooks'
+
+interface FormValues {
+  email: string
+  password: string
+}
+
+const initialValues: FormValues = {
+  email: '',
+  password: ''
+}
 
 const LoginForm = () => {
   const classes = useStyles()
+  const { enqueueSnackbar } = useSnackbar();
+
+  const { authenticateUser, options: { loading } } = useAuthenticateUser({
+    onError: ({ message }) => {
+      enqueueSnackbar(message, { variant: 'error' })
+    }
+  })
+
+  const formik = useFormik<FormValues>({
+    validationSchema,
+    initialValues,
+    onSubmit: authenticateUser,
+  })
 
   return (
     <Card>
@@ -31,6 +60,8 @@ const LoginForm = () => {
       />
       <CardContent>
         <Grid
+          onSubmit={formik.handleSubmit}
+          component='form'
           rowGap={2}
           direction='column'
           container>
@@ -42,13 +73,19 @@ const LoginForm = () => {
           >
             <Grid item>
               <TextField
+                {...formik.getFieldProps('email')}
+                error={!!formik.errors.email}
+                helperText={formik.errors.email}
                 size='small'
                 fullWidth
-                placeholder='Teléfono, usuario o correo electrónico'
+                placeholder='correo electrónico'
               />
             </Grid>
             <Grid item>
               <TextField
+                {...formik.getFieldProps('password')}
+                error={!!formik.errors.password}
+                helperText={formik.errors.password}
                 size='small'
                 fullWidth
                 placeholder='Contraseña'
@@ -58,7 +95,10 @@ const LoginForm = () => {
 
           <Grid item>
             <Button
+              disabled={!(formik.isValid && formik.dirty) || loading}
               fullWidth
+              color='primary'
+              type='submit'
               variant='contained'
             >
               Iniciar Sesión
@@ -99,4 +139,9 @@ const useStyles = makeStyles(() => ({
   }
 }), { name: 'LoginForm-Form' })
 
-export default LoginForm
+const validationSchema = Yup.object({
+  email: Yup.string().trim().required('El campo es requerido').email('Email Invalido'),
+  password: Yup.string().trim().required('El campo es requerido').min(6, 'Debe contener como minimo 6 caracteres')
+})
+
+export default memo(LoginForm)
