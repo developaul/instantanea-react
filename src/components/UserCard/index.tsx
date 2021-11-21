@@ -21,7 +21,7 @@ const UserCard = () => {
         container
         item
         xs >
-        <Grid item xs>
+        <Grid item>
           <Avatar
             userName={userName}
             thereStories={false}
@@ -34,7 +34,7 @@ const UserCard = () => {
           />
         </Grid>
 
-        <Grid item xs>
+        <Grid item>
           <Typography variant="subtitle2">
             {firstName} {lastName}
           </Typography>
@@ -47,7 +47,7 @@ const UserCard = () => {
         </Grid>
       </Grid>
 
-      <Grid item xs>
+      <Grid item>
         <Button
           color="primary"
         >
