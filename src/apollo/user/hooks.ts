@@ -11,7 +11,7 @@ export const useAuthenticateUser = (params?: MutationHookOptions) => {
   const [mutation, options] = useMutation(AUTHENTICATE_USER, {
     onCompleted: ({ authenticateUser }) => {
       const { token } = authenticateUser
-      localStorage.setItem('token', token)
+      localStorage.setItem('accessToken', token)
 
       history.push('/')
     },
