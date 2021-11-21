@@ -29,7 +29,8 @@ const FooterAuth = () => {
 
 const useStyles = makeStyles(({ palette, spacing }: Theme) => ({
   container: {
-    marginTop: spacing(6)
+    marginTop: spacing(4),
+    marginBottom: spacing(4)
   },
   text: {
     textDecoration: 'none',
