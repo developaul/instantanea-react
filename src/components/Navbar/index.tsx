@@ -5,7 +5,7 @@ import { Avatar, IconButton } from "@mui/material"
 import { UserContext } from '../../Providers/UserProvider';
 
 const Navbar = () => {
-  const { userName, photo, firstName } = useContext(UserContext)
+  const { userName, photo, firstName, lastName } = useContext(UserContext)
 
   return (
     <>
@@ -27,7 +27,7 @@ const Navbar = () => {
       <Link to={`/${userName}`}>
         <IconButton size="medium">
           <Avatar
-            alt={firstName}
+            alt={`${firstName} ${lastName}`}
             src={photo}
             sx={{ width: 24, height: 24 }}
           />

@@ -19,6 +19,7 @@ export const GET_USER = gql`
     getUser {
       userName,
       firstName,
+      lastName,
       photo,
       _id
     }

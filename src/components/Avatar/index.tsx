@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import {
   Avatar as MuiAvatar,
   AvatarProps,
@@ -58,4 +59,4 @@ const useStyles = makeStyles(({ spacing, palette, shadows }: Theme) => ({
   }
 }), { name: 'Avatar' })
 
-export default Avatar
+export default memo(Avatar)

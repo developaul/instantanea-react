@@ -1,47 +1,53 @@
+import { useContext } from 'react';
 import { Button, Grid, Typography, Theme } from '@mui/material';
 import { makeStyles } from "@mui/styles"
+
+import { UserContext } from '../../Providers/UserProvider';
 
 import Avatar from '../Avatar'
 
 const UserCard = () => {
-
   const classes = useStyles()
-
+  const { userName, photo, firstName, lastName } = useContext(UserContext)
   return (
     <Grid
       alignItems="center"
       justifyContent="space-between"
       container
+      xs
     >
-      <Grid item>
-        <Grid container>
-          <Grid item>
-            <Avatar
-              userName='developaul'
-              thereStories={false}
-              className={classes.avatar}
-              avatarProps={{
-                alt: "Paul Chávez",
-                sx: { width: 48, height: 48 }
-              }}
-            />
-          </Grid>
+      <Grid
+        alignItems="center"
+        container
+        item
+        xs >
+        <Grid item xs>
+          <Avatar
+            userName={userName}
+            thereStories={false}
+            className={classes.avatar}
+            avatarProps={{
+              src: photo,
+              alt: `${firstName} ${lastName}`,
+              sx: { width: 48, height: 48 }
+            }}
+          />
+        </Grid>
 
-          <Grid item>
-            <Typography variant="subtitle2">
-              Paul
-            </Typography>
-            <Typography
-              className={classes.secondary300}
-              variant="body2"
-            >
-              developaul
-            </Typography>
-          </Grid>
+        <Grid item xs>
+          <Typography variant="subtitle2">
+            {firstName} {lastName}
+          </Typography>
+          <Typography
+            className={classes.secondary300}
+            variant="body2"
+          >
+            {userName}
+          </Typography>
         </Grid>
       </Grid>
 
-      <Grid item>
+      <Grid item xs>
         <Button
           color="primary"
         >
