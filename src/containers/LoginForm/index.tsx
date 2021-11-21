@@ -44,7 +44,7 @@ const LoginForm = () => {
 
 const useStyles = makeStyles(({ spacing }: Theme) => ({
   container: {
-    marginTop: spacing(6)
+    marginTop: spacing(8)
   }
 }), { name: 'LoginForm' })
 

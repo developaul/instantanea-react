@@ -18,11 +18,18 @@ const FormFooter = ({ type }: FormFooterProps) => {
   return (
     <Card>
       <CardContent className={classes.cardContent}>
-        <Typography className={classes.infoText} component='span'>
+        <Typography
+          variant='body2'
+          className={classes.infoText}
+          component='span'>
           {(isLogin) ? '¿No tienes cuenta?' : '¿Tienes una cuenta?'}
         </Typography>
         <Link className={classes.actionText} to={`/accounts/${(isLogin) ? FormFooterTypes.register : FormFooterTypes.login}`}>
-          <Typography color='primary' component='span'>
+          <Typography
+            variant='body2'
+            fontWeight={700}
+            color='primary'
+            component='span'>
             {(isLogin) ? 'Registrate' : 'Inicia sesión'}
           </Typography>
         </Link>

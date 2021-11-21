@@ -78,7 +78,7 @@ const LoginForm = () => {
                 helperText={formik.errors.email}
                 size='small'
                 fullWidth
-                placeholder='correo electrónico'
+                placeholder='Correo electrónico'
               />
             </Grid>
             <Grid item>
@@ -107,27 +107,29 @@ const LoginForm = () => {
 
           <Grid item>
             <Divider>
-              <Typography>
-                O
+              <Typography
+                variant='h6'
+                color='secondary'
+              >
+                o
               </Typography>
             </Divider>
           </Grid>
+
+          <Grid
+            container
+            item
+            justifyContent='center'>
+            <Typography
+              variant='caption'
+              color='primary'
+              component='a'
+            >
+              ¿Olvidaste tu contraseña?
+            </Typography>
+          </Grid>
         </Grid>
       </CardContent>
-      <CardActions>
-        <Grid
-          rowGap={1}
-          alignItems='center'
-          direction='column'
-          container>
-          <Grid item>
-            <Typography>Iniciar sesión con Facebook</Typography>
-          </Grid>
-          <Grid>
-            <Typography>¿Olvidaste tu contraseña?</Typography>
-          </Grid>
-        </Grid>
-      </CardActions>
     </Card>
   )
 }
