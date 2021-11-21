@@ -3,6 +3,9 @@ import Profile from "../containers/Profile"
 import Table from '../containers/Table'
 
 const User = () => {
+
+  // const  = useGetUserByUserName()
+
   return (
     <>
       <Header />

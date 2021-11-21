@@ -15,7 +15,7 @@ import { useSnackbar } from 'notistack'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
-import { useAuthenticateUser } from '../../apollo/user/hooks'
+import { useCreateUser } from '../../apollo/user/hooks'
 
 interface FormValues {
   email: string
@@ -37,7 +37,7 @@ const RegisterForm = () => {
   const classes = useStyles()
   const { enqueueSnackbar } = useSnackbar();
 
-  const { authenticateUser, options: { loading } } = useAuthenticateUser({
+  const { createUser, options: { loading } } = useCreateUser({
     onError: ({ message }) => {
       enqueueSnackbar(message, { variant: 'error' })
     }
@@ -46,7 +46,7 @@ const RegisterForm = () => {
   const formik = useFormik<FormValues>({
     validationSchema,
     initialValues,
-    onSubmit: authenticateUser,
+    onSubmit: createUser,
   })
 
   return (

@@ -1,8 +1,8 @@
 import { Container, Grid, Theme } from "@mui/material"
 import { makeStyles } from "@mui/styles";
 
-import Avatar from "../../components/Avatar"
 import UserInformation from '../../components/UserInformation';
+import Avatar from "../../components/Avatar"
 
 const Profile = () => {
   const classes = useStyles()
@@ -16,9 +16,10 @@ const Profile = () => {
         <Grid item>
           <Avatar
             avatarProps={{
-              sx: { width: 176, height: 176 }
+              sx: { width: 176, height: 176 },
+              src: ''
             }}
-            userName='developaul'
+            userName={'developaul'}
             thereStories={false}
           />
         </Grid>

@@ -1,9 +1,9 @@
 import { useMutation, MutationHookOptions, useQuery } from '@apollo/client'
 import { useHistory } from 'react-router-dom';
 
-import { AUTHENTICATE_USER, GET_USER } from './types';
+import { AUTHENTICATE_USER, CREATE_USER, GET_USER } from './types';
 
-import { AuthenticateUserArgs } from './interfaces';
+import { AuthenticateUserArgs, CreateUserArgs } from './interfaces';
 
 export const useAuthenticateUser = (params?: MutationHookOptions) => {
   const history = useHistory()
@@ -26,6 +26,31 @@ export const useAuthenticateUser = (params?: MutationHookOptions) => {
 
   return {
     authenticateUser,
+    options
+  }
+}
+
+export const useCreateUser = (params?: MutationHookOptions) => {
+  const history = useHistory()
+
+  const [mutation, options] = useMutation(CREATE_USER, {
+    onCompleted: ({ createUser }) => {
+      const { token } = createUser
+      localStorage.setItem('accessToken', token)
+
+      history.push('/')
+    },
+    ...params
+  })
+
+  const createUser = (variables: CreateUserArgs): void => {
+    mutation({
+      variables
+    })
+  }
+
+  return {
+    createUser,
     options
   }
 }
