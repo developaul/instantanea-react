@@ -31,9 +31,14 @@ export const useAuthenticateUser = (params?: MutationHookOptions) => {
 }
 
 export const useGetUser = () => {
-  const { data, loading } = useQuery(GET_USER)
+  const {
+    data: {
+      getUser: user
+    } = { getUser: {} },
+    loading
+  } = useQuery(GET_USER)
 
-  return { data, loading }
+  return { user, loading }
 }
 
 

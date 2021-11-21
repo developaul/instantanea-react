@@ -2,23 +2,24 @@ import { createContext, ReactElement } from "react"
 
 import { useGetUser } from "../apollo/user/hooks"
 
+import { User } from "../interfaces"
+
 interface UserProviderProps {
   children: ReactElement | ReactElement[]
 }
 
-const UserContext = createContext({} as {})
+
+export const UserContext = createContext<User>({} as User)
 
 const UserProvider = ({ children }: UserProviderProps) => {
 
-  const { data, loading } = useGetUser()
+  const { user, loading } = useGetUser()
 
   if (loading) return <p>loading</p>
 
   return (
     <UserContext.Provider
-      value={{
-        user: data?.getUser
-      }}
+      value={user}
     >
       {children}
     </UserContext.Provider>

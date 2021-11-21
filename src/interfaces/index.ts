@@ -23,3 +23,10 @@ export enum FormFooterTypes {
   login = 'login',
   register = 'register'
 }
+
+export interface User {
+  _id: string
+  userName: string
+  firstName: string
+  photo?: string
+}

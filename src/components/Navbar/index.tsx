@@ -1,7 +1,12 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom"
 import { Avatar, IconButton } from "@mui/material"
 
+import { UserContext } from '../../Providers/UserProvider';
+
 const Navbar = () => {
+  const { userName, photo, firstName } = useContext(UserContext)
+
   return (
     <>
       <Link to="/">
@@ -19,14 +24,13 @@ const Navbar = () => {
           <img src="assets/heartOutline.svg" alt="HeartOutline" />
         </IconButton>
       </Link>
-      <Link to="/">
+      <Link to={`/${userName}`}>
         <IconButton size="medium">
           <Avatar
-            alt="Paul Chávez"
+            alt={firstName}
+            src={photo}
             sx={{ width: 24, height: 24 }}
-          >
-            P
-          </Avatar>
+          />
         </IconButton>
       </Link>
     </>
