@@ -7,6 +7,7 @@ import {
   Divider,
   Grid,
   TextField,
+  Theme,
   Typography
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
@@ -45,6 +46,7 @@ const LoginForm = () => {
   return (
     <Card>
       <CardHeader
+        className={classes.cardHeader}
         classes={{
           content: classes.headerContent
         }}
@@ -57,7 +59,9 @@ const LoginForm = () => {
           />
         }
       />
-      <CardContent>
+      <CardContent
+        className={classes.cardContent}
+      >
         <Grid
           onSubmit={formik.handleSubmit}
           component='form'
@@ -133,10 +137,24 @@ const LoginForm = () => {
   )
 }
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(({ spacing }: Theme) => ({
   headerContent: {
     display: 'flex',
     justifyContent: 'center'
+  },
+  cardHeader: {
+    '&.MuiCardHeader-root': {
+      paddingRight: spacing(5),
+      paddingTop: spacing(4),
+      paddingLeft: spacing(5)
+    }
+  },
+  cardContent: {
+    '&.MuiCardContent-root': {
+      paddingTop: spacing(0),
+      paddingRight: spacing(5),
+      paddingLeft: spacing(5)
+    }
   }
 }), { name: 'LoginForm-Form' })
 
