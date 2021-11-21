@@ -8,8 +8,19 @@ export const AUTHENTICATE_USER = gql`
         _id,
         userName,
         firstName,
-        photo,
+        photo
       }
+    }
+  }
+`
+
+export const GET_USER = gql`
+  query getUser {
+    getUser {
+      userName,
+      firstName,
+      photo,
+      _id
     }
   }
 `

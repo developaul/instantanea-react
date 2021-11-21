@@ -1,23 +1,31 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client'
-import { setContext } from "@apollo/client/link/context";
+import { ApolloClient, createHttpLink, from, InMemoryCache } from '@apollo/client'
+import { setContext } from '@apollo/client/link/context'
+import { onError } from '@apollo/client/link/error'
 
-const authLink = setContext((request, previousContext) => {
-  console.log("🚀 ~ authLink ~ request, previousContext", { request, previousContext })
-  const accessToken = localStorage.getItem('accessToken')
-  console.log("🚀 ~ authLink ~ accessToken", accessToken)
+const httpLink = createHttpLink({
+  uri: process.env.REACT_APP_URL_API,
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('accessToken');
 
   return {
     headers: {
-      authorization: (accessToken) ? `Bearer ${accessToken}` : ''
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
     }
   }
+});
+
+const errorHandler = onError(({ networkError }) => {
+  if (networkError?.message?.includes('400'))
+    window.location.href = `${window.location.origin}/accounts/login`
 })
 
 const client = new ApolloClient({
-  uri: process.env.REACT_APP_URL_API,
   connectToDevTools: true,
   cache: new InMemoryCache(),
-  link: authLink
+  link: from([errorHandler, authLink.concat(httpLink)]),
 });
 
 export default client

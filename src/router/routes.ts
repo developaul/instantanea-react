@@ -11,17 +11,21 @@ export const routes: Route[] = [
   {
     path: '/',
     Component: Home,
+    isPrivate: true
   },
   {
     path: '/:userName',
-    Component: Profile
+    Component: Profile,
+    isPrivate: true
   },
   {
     path: '/accounts/login',
-    Component: Login
+    Component: Login,
+    isPrivate: false
   },
   {
     path: '/accounts/register',
-    Component: Register
+    Component: Register,
+    isPrivate: false
   }
 ]

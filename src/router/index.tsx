@@ -5,13 +5,15 @@ import {
   Route,
 } from "react-router-dom";
 
+import UserProvider from '../Providers/UserProvider';
+
 import { routes } from "./routes";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Switch>
-        {routes.map(({ path, Component }) => (
+        {routes.map(({ path, Component, isPrivate }) => (
           <Route
             key={path}
             exact
@@ -20,7 +22,13 @@ const Router = () => {
               <Suspense
                 fallback={'loading...'}
               >
-                <Component />
+                {(!isPrivate) ? (
+                  <Component />
+                ) : (
+                  <UserProvider>
+                    <Component />
+                  </UserProvider>
+                )}
               </Suspense>
             )}
           />

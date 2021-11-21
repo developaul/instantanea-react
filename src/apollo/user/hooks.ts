@@ -1,7 +1,7 @@
-import { useMutation, MutationHookOptions } from '@apollo/client'
+import { useMutation, MutationHookOptions, useQuery } from '@apollo/client'
 import { useHistory } from 'react-router-dom';
 
-import { AUTHENTICATE_USER } from './types';
+import { AUTHENTICATE_USER, GET_USER } from './types';
 
 import { AuthenticateUserArgs } from './interfaces';
 
@@ -29,3 +29,11 @@ export const useAuthenticateUser = (params?: MutationHookOptions) => {
     options
   }
 }
+
+export const useGetUser = () => {
+  const { data, loading } = useQuery(GET_USER)
+
+  return { data, loading }
+}
+
+
