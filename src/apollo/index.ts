@@ -18,8 +18,8 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const errorHandler = onError(({ networkError }) => {
-  if (networkError?.message?.includes('400'))
-    window.location.href = `${window.location.origin}/accounts/login`
+  // if (networkError?.message?.includes('400'))
+  //   window.location.href = `${window.location.origin}/accounts/login`
 })
 
 const client = new ApolloClient({

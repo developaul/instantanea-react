@@ -8,8 +8,7 @@ const UserInformation = () => {
     <Grid
       rowSpacing={2}
       direction='column'
-      container
-      xs>
+      container>
       <Grid item>
         <Grid
           alignItems='center'
@@ -36,7 +35,6 @@ const UserInformation = () => {
         columnSpacing={4}
         container
         item
-        xs
       >
         <Grid item>
           <Typography

@@ -14,7 +14,6 @@ const UserCard = () => {
       alignItems="center"
       justifyContent="space-between"
       container
-      xs
     >
       <Grid
         alignItems="center"

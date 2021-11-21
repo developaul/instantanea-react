@@ -55,3 +55,16 @@ export const GET_USER = gql`
     }
   }
 `
+
+export const GET_USER_BY_USERNAME = gql`
+  query getUserByUserName($userName: String!) {
+    getUserByUserName(userName: $userName) {
+      _id,
+      userName,
+      firstName,
+      lastName,
+      photo
+    }
+  }
+
+`
