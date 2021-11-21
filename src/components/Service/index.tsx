@@ -15,15 +15,7 @@ const Service = ({ title, isLastService }: ServiceProps) => {
       className={classes.secondary200}
       variant='body1'
     >
-      {title}
-
-      {(isLastService) || (
-        <>
-          &nbsp;
-          •
-          &nbsp;
-        </>
-      )}
+      {(!isLastService) ? `${title} • ` : title}
     </Typography>
   )
 }
