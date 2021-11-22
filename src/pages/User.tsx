@@ -14,7 +14,7 @@ const User = () => {
 
   const { userName } = useParams() as UserParams
 
-  const { user, loading } = useGetUserByUserName(userName)
+  const { user, loading } = useGetUserByUserName({ userName })
 
   if (loading) return <p>loading.... skeleton</p>
 
@@ -22,7 +22,9 @@ const User = () => {
   return (
     <>
       <Header />
-      <Profile />
+      <Profile
+        _id={user._id}
+      />
       <Table />
     </>
   )

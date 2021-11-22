@@ -10,3 +10,7 @@ export interface CreateUserArgs {
   lastName: string
   userName: string
 }
+
+export interface GetUserByUserNameArgs {
+  userName: string
+}

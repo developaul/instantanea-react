@@ -4,7 +4,11 @@ import { makeStyles } from "@mui/styles";
 import UserInformation from '../../components/UserInformation';
 import Avatar from "../../components/Avatar"
 
-const Profile = () => {
+interface ProfileProps {
+  _id: string
+}
+
+const Profile = ({ _id }: ProfileProps) => {
   const classes = useStyles()
 
   return (
@@ -25,7 +29,9 @@ const Profile = () => {
         </Grid>
 
         <Grid item>
-          <UserInformation />
+          <UserInformation
+            _id={_id}
+          />
         </Grid>
       </Grid>
     </Container>

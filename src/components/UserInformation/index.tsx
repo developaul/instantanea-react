@@ -1,8 +1,25 @@
+import { memo, useCallback } from "react"
 import { Button, Grid, Theme, Typography } from "@mui/material"
 import { makeStyles } from "@mui/styles"
 
-const UserInformation = () => {
+import { useCreateFollower } from "../../apollo/follower/hooks"
+
+interface UserInformationProps {
+  _id: string
+}
+
+const UserInformation = ({
+  _id
+}: UserInformationProps) => {
   const classes = useStyles()
+
+  const { createFollower } = useCreateFollower()
+
+  const _handleCreateFollower = useCallback(() => {
+    createFollower({
+      followeeId: _id
+    })
+  }, [createFollower, _id])
 
   return (
     <Grid
@@ -21,9 +38,10 @@ const UserInformation = () => {
           </Grid>
           <Grid item>
             <Button
+              onClick={_handleCreateFollower}
               color='secondary'
               variant="outlined">
-              Enviar mensaje
+              Seguir
             </Button>
           </Grid>
         </Grid>
@@ -86,4 +104,4 @@ const useStyles = makeStyles(({ spacing }: Theme) => ({
   }
 }), { name: 'UserInformation' })
 
-export default UserInformation
+export default memo(UserInformation)

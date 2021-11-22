@@ -1,4 +1,4 @@
-import { useMutation, MutationHookOptions, useQuery, OperationVariables } from '@apollo/client'
+import { useMutation, MutationHookOptions, useQuery } from '@apollo/client'
 import { useHistory } from 'react-router-dom';
 
 import {
@@ -8,7 +8,7 @@ import {
   GET_USER_BY_USERNAME
 } from './types';
 
-import { AuthenticateUserArgs, CreateUserArgs } from './interfaces';
+import { AuthenticateUserArgs, CreateUserArgs, GetUserByUserNameArgs } from './interfaces';
 
 export const useAuthenticateUser = (params?: MutationHookOptions) => {
   const history = useHistory()
@@ -71,16 +71,14 @@ export const useGetUser = () => {
   return { user, loading }
 }
 
-export const useGetUserByUserName = (userName: string) => {
+export const useGetUserByUserName = (variables: GetUserByUserNameArgs) => {
   const {
     data: {
       getUserByUserName: user
     } = { getUserByUserName: {} },
     loading
   } = useQuery(GET_USER_BY_USERNAME, {
-    variables: {
-      userName
-    }
+    variables
   })
 
   return { user, loading }

@@ -15,8 +15,6 @@ export const AUTHENTICATE_USER = gql`
   }
 `
 
-
-
 export const CREATE_USER = gql`
   mutation createUser(
     $email: String!,
