@@ -17,6 +17,10 @@ export interface GetProfileByUserNameArgs {
   userName: string
 }
 
+export interface GetProfileByUserNameData {
+  getUserByUserName: Profile
+}
+
 export interface GetProfileByUserNameResult {
   profile: Profile
   loading: boolean

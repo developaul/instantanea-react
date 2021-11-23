@@ -37,8 +37,8 @@ export interface Profile {
   description?: string
   email: string
   firstName: string
-  followers: number
-  following: number
+  followers?: number
+  following?: number
   lastName: string
   photo?: string
   userName: string

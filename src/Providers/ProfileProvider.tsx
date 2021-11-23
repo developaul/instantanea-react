@@ -15,17 +15,18 @@ interface ProfileParams {
   userName: string
 }
 
-const ProfileProvider = ({children}: ProfileProviderProps) => {
+const ProfileProvider = ({ children }: ProfileProviderProps) => {
 
   const { userName } = useParams() as ProfileParams
 
   const { profile, loading } = useGetProfileByUserName({ userName })
+  console.log("🚀 ~ ProfileProvider ~ profile", profile)
 
   if (loading) return <p>loading.... skeleton</p>
 
   return (
     <ProfileContext.Provider
-      value={{...profile}}
+      value={{ ...profile }}
     >
       {children}
     </ProfileContext.Provider>

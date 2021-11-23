@@ -1,21 +1,53 @@
 import { MutationHookOptions, useMutation } from "@apollo/client"
 
-import { CREATE_FOLLOWER } from "./types"
+import { CREATE_FOLLOWER, REMOVE_FOLLOW } from "./types"
+import { CreateFollowerArgs, RemoveFollowArgs } from "./interfaces"
+import { GET_USER_BY_USERNAME } from "../user/types"
+import { GetProfileByUserNameData } from "../user/interfaces"
 
-import { CreateFolloweeArgs } from "./interfaces"
+export const useCreateFollower = ({ userName }: CreateFollowerArgs, params?: MutationHookOptions) =>
+  useMutation(CREATE_FOLLOWER, {
+    update: cache => {
+      const { getUserByUserName } = cache.readQuery({ query: GET_USER_BY_USERNAME, variables: { userName } }) as GetProfileByUserNameData
+      const { followers = 0 } = getUserByUserName
 
-export const useCreateFollower = (params?: MutationHookOptions) => {
+      cache.writeQuery({
+        query: GET_USER_BY_USERNAME,
+        data: {
+          getUserByUserName: {
+            ...getUserByUserName,
+            currentUserIsFollowing: true,
+            followers: followers + 1
+          }
+        },
+        variables: {
+          userName
+        }
+      })
+    },
+    ...params,
+  })
 
-  const [mutation, options] = useMutation(CREATE_FOLLOWER, params)
+export const useRemoveFollow = ({ userName }: RemoveFollowArgs, params?: MutationHookOptions) =>
+  useMutation(REMOVE_FOLLOW, {
+    update: cache => {
+      const { getUserByUserName } = cache.readQuery({ query: GET_USER_BY_USERNAME, variables: { userName } }) as GetProfileByUserNameData
+      const { followers = 0 } = getUserByUserName
 
-  const createFollower = (variables: CreateFolloweeArgs): void => {
-    mutation({
-      variables
-    })
-  }
+      cache.writeQuery({
+        query: GET_USER_BY_USERNAME,
+        data: {
+          getUserByUserName: {
+            ...getUserByUserName,
+            currentUserIsFollowing: false,
+            followers: Math.max(followers - 1, 0)
+          }
+        },
+        variables: {
+          userName
+        }
+      })
+    },
+    ...params,
+  })
 
-  return {
-    createFollower,
-    options
-  }
-}

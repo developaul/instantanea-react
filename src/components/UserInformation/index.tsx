@@ -2,7 +2,7 @@ import { useMemo, useCallback, useContext } from "react"
 import { Button, Grid, Theme, Typography } from "@mui/material"
 import { makeStyles } from "@mui/styles"
 
-import { useCreateFollower } from "../../apollo/follower/hooks"
+import { useCreateFollower, useRemoveFollow } from '../../apollo/follower/hooks';
 import { ProfileContext } from "../../Providers/ProfileProvider"
 
 import { numberWithCommas } from "../../utils"
@@ -10,22 +10,36 @@ import { numberWithCommas } from "../../utils"
 const UserInformation = () => {
   const classes = useStyles()
 
-  const { _id, currentUserIsFollowing, followers, following, description } = useContext(ProfileContext)
+  const {
+    _id,
+    currentUserIsFollowing,
+    followers,
+    following,
+    description,
+    firstName,
+    userName,
+    lastName
+  } = useContext(ProfileContext)
 
-  const followersWithCommas = useMemo(() => numberWithCommas(followers), [followers])
-  const followingWithCommas = useMemo(() => numberWithCommas(following), [following])
+  const followersWithCommas = useMemo(() => numberWithCommas(followers || 0), [followers])
+  const followingWithCommas = useMemo(() => numberWithCommas(following || 0), [following])
+  const followersText = useMemo(() => (followers === 1) ? 'Seguidor' : 'Seguidores', [followers])
+  const followingText = useMemo(() => (following === 1) ? 'Seguido' : 'Seguidos', [following])
 
-  const { createFollower } = useCreateFollower()
+  const [createFollower] = useCreateFollower({ userName })
+  const [removeFollow] = useRemoveFollow({ userName }, {
+    onError: error => {
+      console.log("🚀 ~ UserInformation ~ error", error)
+    }
+  })
 
   const _handleCreateFollower = useCallback(() => {
-    createFollower({
-      followeeId: _id
-    })
+    createFollower({ variables: { followeeId: _id } })
   }, [createFollower, _id])
 
-  const _handleRemoveFollower = useCallback(() => {
-
-  }, [])
+  const _handleRemoveFollow = useCallback(() => {
+    removeFollow({ variables: { followeeId: _id } })
+  }, [removeFollow, _id])
 
 
   return (
@@ -40,13 +54,13 @@ const UserInformation = () => {
           container>
           <Grid item>
             <Typography>
-              Paul Chávez
+              {firstName} {lastName}
             </Typography>
           </Grid>
           <Grid item>
             {(currentUserIsFollowing) ? (
               <Button
-                onClick={_handleRemoveFollower}
+                onClick={_handleRemoveFollow}
                 color='primary'
                 variant="contained">
                 Dejar de Seguir
@@ -89,7 +103,7 @@ const UserInformation = () => {
             {followersWithCommas}
           </Typography>
           <Typography component='span'>
-            seguidores
+            {followersText}
           </Typography>
         </Grid>
 
@@ -100,7 +114,7 @@ const UserInformation = () => {
             {followingWithCommas}
           </Typography>
           <Typography component='span'>
-            seguidos
+            {followingText}
           </Typography>
         </Grid>
       </Grid>
