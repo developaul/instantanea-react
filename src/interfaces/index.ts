@@ -31,3 +31,16 @@ export interface User {
   lastName: string
   photo?: string
 }
+
+export interface Profile {
+  currentUserIsFollowing: boolean
+  description?: string
+  email: string
+  firstName: string
+  followers: number
+  following: number
+  lastName: string
+  photo?: string
+  userName: string
+  _id: string
+}

@@ -8,7 +8,7 @@ import {
   GET_USER_BY_USERNAME
 } from './types';
 
-import { AuthenticateUserArgs, CreateUserArgs, GetUserByUserNameArgs } from './interfaces';
+import { AuthenticateUserArgs, CreateUserArgs, GetProfileByUserNameArgs, GetProfileByUserNameResult } from './interfaces';
 
 export const useAuthenticateUser = (params?: MutationHookOptions) => {
   const history = useHistory()
@@ -71,15 +71,15 @@ export const useGetUser = () => {
   return { user, loading }
 }
 
-export const useGetUserByUserName = (variables: GetUserByUserNameArgs) => {
+export const useGetProfileByUserName = (variables: GetProfileByUserNameArgs): GetProfileByUserNameResult => {
   const {
     data: {
-      getUserByUserName: user
+      getUserByUserName: profile
     } = { getUserByUserName: {} },
     loading
   } = useQuery(GET_USER_BY_USERNAME, {
     variables
   })
 
-  return { user, loading }
+  return { profile, loading }
 }

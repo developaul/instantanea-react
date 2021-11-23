@@ -1,17 +1,19 @@
-import { memo, useCallback } from "react"
+import { useMemo, useCallback, useContext } from "react"
 import { Button, Grid, Theme, Typography } from "@mui/material"
 import { makeStyles } from "@mui/styles"
 
 import { useCreateFollower } from "../../apollo/follower/hooks"
+import { ProfileContext } from "../../Providers/ProfileProvider"
 
-interface UserInformationProps {
-  _id: string
-}
+import { numberWithCommas } from "../../utils"
 
-const UserInformation = ({
-  _id
-}: UserInformationProps) => {
+const UserInformation = () => {
   const classes = useStyles()
+
+  const { _id, currentUserIsFollowing, followers, following, description } = useContext(ProfileContext)
+
+  const followersWithCommas = useMemo(() => numberWithCommas(followers), [followers])
+  const followingWithCommas = useMemo(() => numberWithCommas(following), [following])
 
   const { createFollower } = useCreateFollower()
 
@@ -20,6 +22,11 @@ const UserInformation = ({
       followeeId: _id
     })
   }, [createFollower, _id])
+
+  const _handleRemoveFollower = useCallback(() => {
+
+  }, [])
+
 
   return (
     <Grid
@@ -37,12 +44,21 @@ const UserInformation = ({
             </Typography>
           </Grid>
           <Grid item>
-            <Button
-              onClick={_handleCreateFollower}
-              color='secondary'
-              variant="outlined">
-              Seguir
-            </Button>
+            {(currentUserIsFollowing) ? (
+              <Button
+                onClick={_handleRemoveFollower}
+                color='primary'
+                variant="contained">
+                Dejar de Seguir
+              </Button>
+            ) : (
+              <Button
+                onClick={_handleCreateFollower}
+                color='secondary'
+                variant="outlined">
+                Seguir
+              </Button>
+            )}
           </Grid>
         </Grid>
       </Grid>
@@ -70,7 +86,7 @@ const UserInformation = ({
           <Typography
             className={classes.marginRight}
             component='span'>
-            2,764
+            {followersWithCommas}
           </Typography>
           <Typography component='span'>
             seguidores
@@ -81,7 +97,7 @@ const UserInformation = ({
           <Typography
             className={classes.marginRight}
             component='span'>
-            710
+            {followingWithCommas}
           </Typography>
           <Typography component='span'>
             seguidos
@@ -89,11 +105,13 @@ const UserInformation = ({
         </Grid>
       </Grid>
 
-      <Grid item>
-        <Typography>
-          Disfruta de los mejores paisajes del mundo
-        </Typography>
-      </Grid>
+      {(description) && (
+        <Grid item>
+          <Typography>
+            {description}
+          </Typography>
+        </Grid>
+      )}
     </Grid >
   )
 }
@@ -104,4 +122,4 @@ const useStyles = makeStyles(({ spacing }: Theme) => ({
   }
 }), { name: 'UserInformation' })
 
-export default memo(UserInformation)
+export default UserInformation

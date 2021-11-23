@@ -58,10 +58,15 @@ export const GET_USER_BY_USERNAME = gql`
   query getUserByUserName($userName: String!) {
     getUserByUserName(userName: $userName) {
       _id,
+      email,
       userName,
       firstName,
       lastName,
-      photo
+      description,
+      photo,
+      followers,
+      following,
+      currentUserIsFollowing
     }
   }
 

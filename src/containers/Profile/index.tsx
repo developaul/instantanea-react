@@ -1,15 +1,15 @@
+import { useContext } from "react";
 import { Container, Grid, Theme } from "@mui/material"
 import { makeStyles } from "@mui/styles";
+
+import { ProfileContext } from "../../Providers/ProfileProvider";
 
 import UserInformation from '../../components/UserInformation';
 import Avatar from "../../components/Avatar"
 
-interface ProfileProps {
-  _id: string
-}
-
-const Profile = ({ _id }: ProfileProps) => {
+const Profile = () => {
   const classes = useStyles()
+  const { userName, photo } = useContext(ProfileContext)
 
   return (
     <Container className={classes.container}>
@@ -21,17 +21,15 @@ const Profile = ({ _id }: ProfileProps) => {
           <Avatar
             avatarProps={{
               sx: { width: 176, height: 176 },
-              src: ''
+              src: photo
             }}
-            userName={'developaul'}
+            userName={userName}
             thereStories={false}
           />
         </Grid>
 
         <Grid item>
-          <UserInformation
-            _id={_id}
-          />
+          <UserInformation />
         </Grid>
       </Grid>
     </Container>

@@ -1,32 +1,19 @@
-import { useParams } from "react-router-dom"
-
-import { useGetUserByUserName } from "../apollo/user/hooks"
+import ProfileProvider from "../Providers/ProfileProvider"
 
 import Header from "../containers/Header"
 import Profile from "../containers/Profile"
 import Table from '../containers/Table'
 
-interface UserParams {
-  userName: string
-}
 
 const User = () => {
 
-  const { userName } = useParams() as UserParams
 
-  const { user, loading } = useGetUserByUserName({ userName })
-
-  if (loading) return <p>loading.... skeleton</p>
-
-  console.log("🚀 ~ User ~ user", user)
   return (
-    <>
+    <ProfileProvider>
       <Header />
-      <Profile
-        _id={user._id}
-      />
+      <Profile />
       <Table />
-    </>
+      </ProfileProvider>
   )
 }
 
