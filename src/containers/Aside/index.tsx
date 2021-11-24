@@ -1,13 +1,18 @@
 import { Grid, Theme, Typography } from "@mui/material"
 import { makeStyles } from "@mui/styles"
 
+import { useGetSuggestedUsers } from '../../apollo/user/hooks';
+
 import SuggestionList from "../../components/SuggestionList"
 import ServicesList from "../../components/ServicesList"
 import UserCard from "../../components/UserCard"
 
 const Aside = () => {
-
   const classes = useStyles()
+
+  const { users, loading } = useGetSuggestedUsers()
+
+  if (loading) return <p>'aside loading'</p>
 
   return (
     <Grid
@@ -19,9 +24,13 @@ const Aside = () => {
         <UserCard />
       </Grid>
 
-      <Grid item >
-        <SuggestionList />
-      </Grid>
+      {(users.length) && (
+        <Grid item >
+          <SuggestionList
+            users={users}
+          />
+        </Grid>
+      )}
 
       <Grid item>
         <ServicesList />

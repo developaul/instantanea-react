@@ -1,9 +1,10 @@
-import { useMutation, MutationHookOptions, useQuery } from '@apollo/client'
+import { useMutation, MutationHookOptions, useQuery, QueryHookOptions } from '@apollo/client'
 import { useHistory } from 'react-router-dom';
 
 import {
   AUTHENTICATE_USER,
   CREATE_USER,
+  GET_SUGGESTED_USERS,
   GET_USER,
   GET_USER_BY_USERNAME
 } from './types';
@@ -83,3 +84,13 @@ export const useGetProfileByUserName = (variables: GetProfileByUserNameArgs): Ge
 
   return { profile, loading }
 }
+
+export const useGetSuggestedUsers = (params?: QueryHookOptions) => {
+  const {
+    data: { getSuggestedUsers: users } = { getSuggestedUsers: [] },
+    ...options
+  } = useQuery(GET_SUGGESTED_USERS, params)
+
+  return { users, ...options }
+}
+

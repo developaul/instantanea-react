@@ -1,8 +1,17 @@
-import { Avatar, Button, Grid, Theme, Typography } from "@mui/material"
+import { useCallback } from "react"
+import { Button, Grid, Theme, Typography } from "@mui/material"
 import { makeStyles } from "@mui/styles"
 
-const SuggestionCard = () => {
+import Avatar from "../Avatar"
+
+import { User } from "../../interfaces"
+
+const SuggestionCard = ({ photo, userName, firstName, lastName }: User) => {
   const classes = useStyles()
+
+  const _handleCreateFollower = useCallback(() => {
+
+  }, [])
 
   return (
     <Grid
@@ -16,17 +25,20 @@ const SuggestionCard = () => {
           <Grid item>
             <Avatar
               className={classes.avatar}
-              alt="Paul Chávez"
-              sx={{ width: 32, height: 32 }}
-            >
-              P
-            </Avatar>
+              userName={userName}
+              thereStories={false}
+              avatarProps={{
+                alt: `${firstName} ${lastName}`,
+                sx: { width: 32, height: 32 },
+                src: photo
+              }}
+            />
           </Grid>
 
           <Grid item>
             <Typography
               variant="subtitle2">
-              Paul
+              {firstName} {lastName}
             </Typography>
             <Typography
               className={classes.secondary300}
@@ -41,6 +53,7 @@ const SuggestionCard = () => {
         <Button
           color="primary"
           variant="text"
+          onClick={_handleCreateFollower}
         >
           Seguir
         </Button>

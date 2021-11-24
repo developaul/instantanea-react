@@ -1,17 +1,14 @@
 import { Grid, Theme, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { User } from '../../interfaces';
 
 import SuggestionCard from '../SuggestionCard';
 
-const suggestionList = [
-  0,
-  1,
-  2,
-  3
-]
+interface SuggestionListProps {
+  users: User[]
+}
 
-const SuggestionList = () => {
-
+const SuggestionList = ({ users }: SuggestionListProps) => {
   const classes = useStyles()
 
   return (
@@ -29,8 +26,11 @@ const SuggestionList = () => {
 
       <Grid
         item>
-        {suggestionList.map((suggestion) => (
-          <SuggestionCard key={suggestion} />
+        {users.map((user) => (
+          <SuggestionCard
+            key={user._id}
+            {...user}
+          />
         ))}
       </Grid>
     </Grid>
