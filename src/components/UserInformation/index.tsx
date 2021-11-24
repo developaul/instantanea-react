@@ -4,6 +4,7 @@ import { makeStyles } from "@mui/styles"
 
 import { useCreateFollower, useRemoveFollow } from '../../apollo/follower/hooks';
 import { ProfileContext } from "../../Providers/ProfileProvider"
+import { UserContext } from "../../Providers/UserProvider";
 
 import { numberWithCommas } from "../../utils"
 
@@ -21,10 +22,13 @@ const UserInformation = () => {
     lastName
   } = useContext(ProfileContext)
 
+  const { _id: userId } = useContext(UserContext)
+
   const followersWithCommas = useMemo(() => numberWithCommas(followers || 0), [followers])
   const followingWithCommas = useMemo(() => numberWithCommas(following || 0), [following])
   const followersText = useMemo(() => (followers === 1) ? 'Seguidor' : 'Seguidores', [followers])
   const followingText = useMemo(() => (following === 1) ? 'Seguido' : 'Seguidos', [following])
+  const isCurrentUser = useMemo(() => (_id === userId), [_id, userId])
 
   const [createFollower] = useCreateFollower({ userName })
   const [removeFollow] = useRemoveFollow({ userName }, {
@@ -41,6 +45,9 @@ const UserInformation = () => {
     removeFollow({ variables: { followeeId: _id } })
   }, [removeFollow, _id])
 
+  const _handleEditProfile = useCallback(() => {
+
+  }, [])
 
   return (
     <Grid
@@ -58,7 +65,14 @@ const UserInformation = () => {
             </Typography>
           </Grid>
           <Grid item>
-            {(currentUserIsFollowing) ? (
+            {(isCurrentUser) ? (
+              <Button
+                onClick={_handleEditProfile}
+                color='secondary'
+                variant="outlined">
+                Editar Perfil
+              </Button>
+            ) : (currentUserIsFollowing) ? (
               <Button
                 onClick={_handleRemoveFollow}
                 color='primary'

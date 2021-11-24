@@ -17,10 +17,9 @@ interface ProfileParams {
 
 const ProfileProvider = ({ children }: ProfileProviderProps) => {
 
-  const { userName } = useParams() as ProfileParams
+  const { userName } = useParams<ProfileParams>() 
 
   const { profile, loading } = useGetProfileByUserName({ userName })
-  console.log("🚀 ~ ProfileProvider ~ profile", profile)
 
   if (loading) return <p>loading.... skeleton</p>
 

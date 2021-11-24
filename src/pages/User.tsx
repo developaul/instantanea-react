@@ -13,7 +13,7 @@ const User = () => {
       <Header />
       <Profile />
       <Table />
-      </ProfileProvider>
+    </ProfileProvider>
   )
 }
 
