@@ -1,6 +1,7 @@
 import { useMemo, useCallback, useContext } from "react"
 import { Button, Grid, Theme, Typography } from "@mui/material"
 import { makeStyles } from "@mui/styles"
+import { useSnackbar } from 'notistack'
 
 import { useCreateFollower, useRemoveFollow } from '../../apollo/follower/hooks';
 import { ProfileContext } from "../../Providers/ProfileProvider"
@@ -23,6 +24,7 @@ const UserInformation = () => {
   } = useContext(ProfileContext)
 
   const { _id: userId } = useContext(UserContext)
+  const { enqueueSnackbar } = useSnackbar()
 
   const followersWithCommas = useMemo(() => numberWithCommas(followers || 0), [followers])
   const followingWithCommas = useMemo(() => numberWithCommas(following || 0), [following])
@@ -30,11 +32,11 @@ const UserInformation = () => {
   const followingText = useMemo(() => (following === 1) ? 'Seguido' : 'Seguidos', [following])
   const isCurrentUser = useMemo(() => (_id === userId), [_id, userId])
 
-  const [createFollower] = useCreateFollower({ userName })
+  const [createFollower] = useCreateFollower({ userName }, {
+    onError: error => { enqueueSnackbar(error.message, { variant: 'error' }) }
+  })
   const [removeFollow] = useRemoveFollow({ userName }, {
-    onError: error => {
-      console.log("🚀 ~ UserInformation ~ error", error)
-    }
+    onError: error => { enqueueSnackbar(error.message, { variant: 'error' }) }
   })
 
   const _handleCreateFollower = useCallback(() => {

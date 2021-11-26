@@ -44,3 +44,7 @@ export interface Profile {
   userName: string
   _id: string
 }
+
+export interface ShortProfile extends User {
+  currentUserIsFollowing: boolean
+}

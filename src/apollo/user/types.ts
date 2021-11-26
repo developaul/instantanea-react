@@ -75,6 +75,7 @@ export const GET_USER_BY_USERNAME = gql`
 export const GET_SUGGESTED_USERS = gql`
   query getSuggestedUsers {
     getSuggestedUsers {
+      currentUserIsFollowing
       userName,
       firstName,
       lastName,

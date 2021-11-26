@@ -1,11 +1,12 @@
 import { Grid, Theme, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { User } from '../../interfaces';
 
 import SuggestionCard from '../SuggestionCard';
 
+import { ShortProfile } from '../../interfaces';
+
 interface SuggestionListProps {
-  users: User[]
+  users: ShortProfile[]
 }
 
 const SuggestionList = ({ users }: SuggestionListProps) => {

@@ -1,17 +1,33 @@
 import { useCallback } from "react"
 import { Button, Grid, Theme, Typography } from "@mui/material"
 import { makeStyles } from "@mui/styles"
+import { useSnackbar } from "notistack"
+import { Link } from "react-router-dom"
 
 import Avatar from "../Avatar"
+import { useCreateFollower, useRemoveFollow } from "../../apollo/follower/hooks"
 
-import { User } from "../../interfaces"
+import { ShortProfile } from "../../interfaces"
 
-const SuggestionCard = ({ photo, userName, firstName, lastName }: User) => {
+const SuggestionCard = ({ _id, photo, userName, firstName, lastName, currentUserIsFollowing }: ShortProfile) => {
   const classes = useStyles()
+  const { enqueueSnackbar } = useSnackbar()
+
+  const [createFollower] = useCreateFollower({ userName }, {
+    onError: error => { enqueueSnackbar(error.message, { variant: 'error' }) }
+  })
+
+  const [removeFollow] = useRemoveFollow({ userName }, {
+    onError: error => { enqueueSnackbar(error.message, { variant: 'error' }) }
+  })
 
   const _handleCreateFollower = useCallback(() => {
+    createFollower({ variables: { followeeId: _id } })
+  }, [createFollower, _id])
 
-  }, [])
+  const _handleRemoveFollower = useCallback(() => {
+    removeFollow({ variables: { followeeId: _id } })
+  }, [removeFollow, _id])
 
   return (
     <Grid
@@ -36,10 +52,14 @@ const SuggestionCard = ({ photo, userName, firstName, lastName }: User) => {
           </Grid>
 
           <Grid item>
-            <Typography
-              variant="subtitle2">
-              {firstName} {lastName}
-            </Typography>
+            <Link
+              className={classes.link}
+              to={`/${userName}`}>
+              <Typography
+                variant="subtitle2">
+                {firstName} {lastName}
+              </Typography>
+            </Link>
             <Typography
               className={classes.secondary300}
               variant="body2">
@@ -50,13 +70,23 @@ const SuggestionCard = ({ photo, userName, firstName, lastName }: User) => {
       </Grid>
 
       <Grid item>
-        <Button
-          color="primary"
-          variant="text"
-          onClick={_handleCreateFollower}
-        >
-          Seguir
-        </Button>
+        {(currentUserIsFollowing) ? (
+          <Button
+            color="error"
+            variant="text"
+            onClick={_handleRemoveFollower}
+          >
+            Dejar de seguir
+          </Button>
+        ) : (
+          <Button
+            color="primary"
+            variant="text"
+            onClick={_handleCreateFollower}
+          >
+            Seguir
+          </Button>
+        )}
       </Grid>
     </Grid>
   )
@@ -71,6 +101,10 @@ const useStyles = makeStyles(({ spacing, palette }: Theme) => ({
   },
   secondary300: {
     color: palette.secondary[300]
+  },
+  link: {
+    color: 'unset',
+    textDecoration: 'none'
   }
 }), { name: 'SuggestionCard' })
 

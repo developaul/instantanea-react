@@ -1,4 +1,4 @@
-import { Profile } from "../../interfaces";
+import { Profile, ShortProfile } from "../../interfaces";
 
 export interface AuthenticateUserArgs {
   email: string
@@ -19,6 +19,10 @@ export interface GetProfileByUserNameArgs {
 
 export interface GetProfileByUserNameData {
   getUserByUserName: Profile
+}
+
+export interface GetSuggestedUsersData {
+  getSuggestedUsers: ShortProfile[]
 }
 
 export interface GetProfileByUserNameResult {
