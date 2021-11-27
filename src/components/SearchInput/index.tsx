@@ -8,7 +8,7 @@ const SearchInput = () => {
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
-            <img src="assets/search.svg" alt="Search" />
+            <img src="/assets/search.svg" alt="Search" />
           </InputAdornment>
         )
       }}

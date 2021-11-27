@@ -20,7 +20,7 @@ const Header = () => {
         >
           <Grid item>
             <Link to="/">
-              <img src="assets/logo.png" alt="Instantanea" />
+              <img src="/assets/logo.png" alt="Instantanea" />
             </Link>
           </Grid>
 
