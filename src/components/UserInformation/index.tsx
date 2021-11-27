@@ -28,8 +28,8 @@ const UserInformation = () => {
 
   const followersWithCommas = useMemo(() => numberWithCommas(followers || 0), [followers])
   const followingWithCommas = useMemo(() => numberWithCommas(following || 0), [following])
-  const followersText = useMemo(() => (followers === 1) ? 'Seguidor' : 'Seguidores', [followers])
-  const followingText = useMemo(() => (following === 1) ? 'Seguido' : 'Seguidos', [following])
+  const followersText = useMemo(() => (followers === 1) ? 'seguidor' : 'seguidores', [followers])
+  const followingText = useMemo(() => (following === 1) ? 'seguido' : 'seguidos', [following])
   const isCurrentUser = useMemo(() => (_id === userId), [_id, userId])
 
   const [createFollower] = useCreateFollower({ userName }, {
@@ -62,7 +62,7 @@ const UserInformation = () => {
           justifyContent='space-between'
           container>
           <Grid item>
-            <Typography>
+            <Typography variant='h6'>
               {firstName} {lastName}
             </Typography>
           </Grid>
@@ -103,11 +103,12 @@ const UserInformation = () => {
         <Grid item>
           <Typography
             className={classes.marginRight}
+            variant='subtitle1'
             component='span'>
             141
           </Typography>
           <Typography component='span'>
-            Publicaciones
+            publicaciones
           </Typography>
         </Grid>
 
@@ -115,6 +116,7 @@ const UserInformation = () => {
           item>
           <Typography
             className={classes.marginRight}
+            variant='subtitle1'
             component='span'>
             {followersWithCommas}
           </Typography>
@@ -126,6 +128,7 @@ const UserInformation = () => {
         <Grid item>
           <Typography
             className={classes.marginRight}
+            variant='subtitle1'
             component='span'>
             {followingWithCommas}
           </Typography>
