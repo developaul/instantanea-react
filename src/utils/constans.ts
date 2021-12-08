@@ -22,3 +22,8 @@ export const defaultMenuItems: MenuItem[] = [
     label: 'ETIQUETADAS',
   },
 ]
+
+export const POST_CREATION_VIEWS = {
+  UPLOAD: 'UPLOAD',
+  PREVIEW: 'PREVIEW'
+}

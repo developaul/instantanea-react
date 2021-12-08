@@ -24,7 +24,7 @@ const Aside = () => {
         <UserCard />
       </Grid>
 
-      {(users.length) && (
+      {(Boolean(users.length)) && (
         <Grid item >
           <SuggestionList
             users={users}
