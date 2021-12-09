@@ -13,14 +13,14 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Switch>
-        {routes.map(({ path, Component, isPrivate }) => (
+        {routes.map(({ path, Component, isPrivate, FallBack }) => (
           <Route
             key={path}
             exact
             path={path}
             render={() => (
               <Suspense
-                fallback={'loading...'}
+                fallback={FallBack ? <FallBack /> : 'loading'}
               >
                 {(!isPrivate) ? (
                   <Component />

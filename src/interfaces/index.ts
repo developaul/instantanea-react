@@ -5,7 +5,8 @@ export type JSXComponent = () => JSX.Element
 export interface Route {
   path: string
   Component: LazyExoticComponent<JSXComponent> | JSXComponent
-  isPrivate: boolean
+  isPrivate: boolean,
+  FallBack: LazyExoticComponent<JSXComponent> | JSXComponent
 }
 
 export interface MenuItem {

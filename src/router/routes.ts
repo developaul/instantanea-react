@@ -1,6 +1,8 @@
 import { lazy } from "react"
 
-import { Route } from '../interfaces';
+import LoginFallBack from "../components/LoginFallBack"
+
+import { Route } from '../interfaces'
 
 const Home = lazy(() => import( /* webpackChunkName: "Home" */ '../pages/Home'))
 const Profile = lazy(() => import( /* webpackChunkName: "Profile" */ '../pages/User'))
@@ -11,21 +13,25 @@ export const routes: Route[] = [
   {
     path: '/',
     Component: Home,
-    isPrivate: true
+    isPrivate: true,
+    FallBack: LoginFallBack
   },
   {
     path: '/:userName',
     Component: Profile,
-    isPrivate: true
+    isPrivate: true,
+    FallBack: LoginFallBack
   },
   {
     path: '/accounts/login',
     Component: Login,
-    isPrivate: false
+    isPrivate: false,
+    FallBack: LoginFallBack
   },
   {
     path: '/accounts/register',
     Component: Register,
-    isPrivate: false
+    isPrivate: false,
+    FallBack: LoginFallBack
   }
 ]
