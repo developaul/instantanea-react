@@ -112,8 +112,8 @@ const RegisterForm = () => {
             <Grid item>
               <TextField
                 {...formik.getFieldProps('email')}
-                error={!!formik.errors.email}
-                helperText={formik.errors.email}
+                error={Boolean(formik.touched.email) && Boolean(formik.errors.email)}
+                helperText={Boolean(formik.touched.email) && formik.errors.email}
                 size='small'
                 fullWidth
                 placeholder='Correo electrónico'
@@ -123,8 +123,8 @@ const RegisterForm = () => {
             <Grid item>
               <TextField
                 {...formik.getFieldProps('firstName')}
-                error={!!formik.errors.firstName}
-                helperText={formik.errors.firstName}
+                error={Boolean(formik.touched.firstName) && Boolean(formik.errors.firstName)}
+                helperText={Boolean(formik.touched.firstName) && formik.errors.firstName}
                 size='small'
                 fullWidth
                 placeholder='Nombres'
@@ -134,8 +134,8 @@ const RegisterForm = () => {
             <Grid item>
               <TextField
                 {...formik.getFieldProps('lastName')}
-                error={!!formik.errors.lastName}
-                helperText={formik.errors.lastName}
+                error={Boolean(formik.touched.lastName) && Boolean(formik.errors.lastName)}
+                helperText={Boolean(formik.touched.lastName) && formik.errors.lastName}
                 size='small'
                 fullWidth
                 placeholder='Apellidos'
@@ -145,8 +145,8 @@ const RegisterForm = () => {
             <Grid item>
               <TextField
                 {...formik.getFieldProps('userName')}
-                error={!!formik.errors.userName}
-                helperText={formik.errors.userName}
+                error={Boolean(formik.touched.userName) && Boolean(formik.errors.userName)}
+                helperText={Boolean(formik.touched.userName) && formik.errors.userName}
                 size='small'
                 fullWidth
                 placeholder='Nombre de usuario'
@@ -156,8 +156,8 @@ const RegisterForm = () => {
             <Grid item>
               <TextField
                 {...formik.getFieldProps('password')}
-                error={!!formik.errors.password}
-                helperText={formik.errors.password}
+                error={Boolean(formik.touched.password) && Boolean(formik.errors.password)}
+                helperText={Boolean(formik.touched.password) && formik.errors.password}
                 size='small'
                 fullWidth
                 placeholder='Contraseña'
@@ -220,7 +220,14 @@ const useStyles = makeStyles(({ spacing }: Theme) => ({
 const validationSchema = Yup.object({
   email: Yup.string().trim().required('El campo es requerido').email('Email Invalido'),
   password: Yup.string().trim().required('El campo es requerido').min(6, 'Debe contener como minimo 6 caracteres'),
-  userName: Yup.string().trim().required('El campo es requiredo'),
+  userName: Yup.string()
+    .trim()
+    .required('El campo es requiredo')
+    .test({
+      message: 'Nombre de usuario invalido',
+      name: 'userName',
+      test: (value: string | undefined) => value ? /^[a-zA-Z0-9]+$/.test(value) : false
+    }),
   firstName: Yup.string().trim().required('El campo es requiredo'),
   lastName: Yup.string().trim().required('El campo es requiredo')
 })
