@@ -89,7 +89,7 @@ const CreatePost = ({
   const isPreview = useMemo(() => post.view === POST_CREATION_VIEWS.PREVIEW, [post.view])
 
   const _handleCreateaPost = useCallback(() => {
-
+    console.log({ post })
   }, [])
 
   return (
