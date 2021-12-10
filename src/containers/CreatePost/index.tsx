@@ -9,15 +9,15 @@ import {
 } from "@mui/material"
 import { makeStyles } from "@mui/styles";
 import { ArrowBack as ArrowBackIcon } from '@mui/icons-material';
+import clsx from 'clsx';
+import { useSnackbar } from 'notistack'
+
 import Upload from "../../components/Upload";
 import PostCreationPreview from '../../components/PostCreationPreview';
-
-
-
+import { useCreatePublication } from '../../apollo/publication/hooks';
 import { POST_CREATION_VIEWS } from "../../utils/constans";
 import { PostCreationState } from '../../interfaces';
 import { fileToURL } from '../../utils';
-import clsx from 'clsx';
 
 interface Props {
   onClose: () => void,
@@ -29,6 +29,12 @@ const CreatePost = ({
   open
 }: Props) => {
   const classes = useStyles()
+
+  const { enqueueSnackbar } = useSnackbar()
+
+  const [createPublication] = useCreatePublication({
+    onError: error => { enqueueSnackbar(error.message, { variant: 'error' }) }
+  })
 
   const [post, setPost] = useState<PostCreationState>({
     media: null,
@@ -89,8 +95,15 @@ const CreatePost = ({
   const isPreview = useMemo(() => post.view === POST_CREATION_VIEWS.PREVIEW, [post.view])
 
   const _handleCreateaPost = useCallback(() => {
-    console.log({ post })
-  }, [])
+    const { description } = post
+
+    createPublication({
+      variables: {
+        media: 'https://images.unsplash.com/photo-1555099962-4199c345e5dd',
+        description
+      }
+    })
+  }, [createPublication, post])
 
   return (
     <Dialog
