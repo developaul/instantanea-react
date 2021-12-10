@@ -1,6 +1,7 @@
 import { lazy } from "react"
 
 import LoginFallBack from "../components/LoginFallBack"
+import RegisterFallBack from "../components/RegisterFallBack"
 
 import { Route } from '../interfaces'
 
@@ -32,6 +33,6 @@ export const routes: Route[] = [
     path: '/accounts/register',
     Component: Register,
     isPrivate: false,
-    FallBack: LoginFallBack
+    FallBack: RegisterFallBack
   }
 ]
