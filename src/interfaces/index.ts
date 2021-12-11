@@ -50,10 +50,17 @@ export interface ShortProfile extends User {
   currentUserIsFollowing: boolean
 }
 
-
 export interface PostCreationState {
   media: File | null,
   urlMedia: string | ArrayBuffer | null,
   description: string,
   view: string
+}
+
+export interface Publication {
+  _id: string
+  status: string
+  createdBy: User
+  media: string
+  description: string
 }

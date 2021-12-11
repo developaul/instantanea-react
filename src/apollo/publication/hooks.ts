@@ -1,6 +1,6 @@
-import { MutationHookOptions, useMutation } from "@apollo/client";
+import { MutationHookOptions, useMutation, QueryHookOptions, useQuery } from '@apollo/client';
 
-import { CREATE_PUBLICATION } from "./types";
+import { CREATE_PUBLICATION, GET_PUBLICATIONS } from "./types";
 
 export const useCreatePublication = (params?: MutationHookOptions) =>
   useMutation(CREATE_PUBLICATION, {
@@ -10,3 +10,6 @@ export const useCreatePublication = (params?: MutationHookOptions) =>
     },
     ...params
   })
+
+export const useGetPublications = <T>(params?: QueryHookOptions) =>
+  useQuery<T>(GET_PUBLICATIONS, params)
