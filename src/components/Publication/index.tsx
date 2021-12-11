@@ -1,3 +1,4 @@
+import { useContext } from "react"
 import {
   Avatar,
   Button,
@@ -19,12 +20,14 @@ import {
 } from '@mui/icons-material'
 import { makeStyles } from "@mui/styles"
 
+import { UserContext } from "../../Providers/UserProvider"
+
 import { Publication as IPublication } from '../../interfaces'
 
 const Publication = ({ media, description, createdBy }: IPublication) => {
   const classes = useStyles()
-  const { firstName, lastName, userName, photo } = createdBy
 
+  const { firstName, lastName, userName, photo } = useContext(UserContext)
 
   return (
     <Grid item>
@@ -33,10 +36,10 @@ const Publication = ({ media, description, createdBy }: IPublication) => {
           avatar={
             <Avatar
               sx={{ width: 32, height: 32 }}
-              src={photo}
-              alt={`${firstName} ${lastName}`}
+              src={createdBy.photo}
+              alt={`${createdBy.firstName} ${createdBy.lastName}`}
             >
-              {userName?.charAt(0)}
+              {createdBy.userName.charAt(0)}
             </Avatar>
           }
           action={
@@ -46,14 +49,14 @@ const Publication = ({ media, description, createdBy }: IPublication) => {
               <MoreVertIcon />
             </IconButton>
           }
-          title={userName}
+          title={createdBy.userName}
         />
 
         <CardMedia
           component="img"
           height="194"
           image={media}
-          alt="Paella dish"
+          alt={description}
         />
 
         <CardActions disableSpacing>
@@ -90,7 +93,7 @@ const Publication = ({ media, description, createdBy }: IPublication) => {
           <Typography
             variant="subtitle1"
             component='strong'>
-            {userName}&nbsp;
+            {createdBy.userName}&nbsp;
           </Typography>
           <Typography
             component="span"
@@ -119,10 +122,13 @@ const Publication = ({ media, description, createdBy }: IPublication) => {
             placeholder='Agrega un comentario...'
             startAdornment={
               <InputAdornment position='start'>
+
                 <Avatar
                   sx={{ width: 24, height: 24 }}
+                  src={photo}
+                  alt={`${firstName} ${lastName}`}
                 >
-                  W
+                  {userName.charAt(0)}
                 </Avatar>
               </InputAdornment>
             }
