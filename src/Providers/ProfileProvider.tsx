@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 
 import { useGetProfileByUserName } from "../apollo/user/hooks"
 
-import { Profile } from "../interfaces"
+import { Profile, ProfileParams } from "../interfaces"
 
 export const ProfileContext = createContext({} as Profile)
 
@@ -11,13 +11,9 @@ interface ProfileProviderProps {
   children: ReactElement | ReactElement[]
 }
 
-interface ProfileParams {
-  userName: string
-}
-
 const ProfileProvider = ({ children }: ProfileProviderProps) => {
 
-  const { userName } = useParams<ProfileParams>() 
+  const { userName } = useParams<ProfileParams>()
 
   const { profile, loading } = useGetProfileByUserName({ userName })
 

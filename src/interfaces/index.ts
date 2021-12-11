@@ -64,3 +64,7 @@ export interface Publication {
   media: string
   description: string
 }
+
+export interface ProfileParams {
+  userName: string
+}

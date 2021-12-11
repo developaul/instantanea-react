@@ -20,8 +20,8 @@ export const GET_PUBLICATIONS = gql`
 `
 
 export const GET_SHORT_PUBLICATIONS = gql`
-  query getShowPublications($limit: Int!, $page: Int!, $userId: ID!) {
-    getShowPublications(limit: $limit, page: $page, userId:  $userId) {
+  query getShortPublications($limit: Int!, $page: Int!, $userName: String!) {
+    getShortPublications(limit: $limit, page: $page, userName:  $userName) {
       _id
       description,
       media
