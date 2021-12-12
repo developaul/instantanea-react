@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { PUBLICATION_LIKE_USER_FRAGMENT } from '../publicationLike/fragment';
 
 export const PUBLICATION_FRAGMENT = gql`
   fragment publicationFragment on Publication {
@@ -6,6 +7,13 @@ export const PUBLICATION_FRAGMENT = gql`
     status,
     description,
     media,
+    currentUserLikes,
+    likes {
+      _id,
+      createdBy {
+        ...publicationLikeUserFragment
+      }
+    },
     createdBy {
       _id,
       email,
@@ -15,4 +23,5 @@ export const PUBLICATION_FRAGMENT = gql`
       photo
     }
   }
+  ${PUBLICATION_LIKE_USER_FRAGMENT}
 `

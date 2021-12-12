@@ -62,7 +62,15 @@ export interface Publication {
   status: string
   createdBy: User
   media: string
-  description: string
+  description: string,
+  currentUserLikes: boolean,
+  likes: PublicationLike[]
+}
+
+export interface PublicationLike {
+  _id: string
+  createdBy: User
+  publicationId: String
 }
 
 export interface ProfileParams {

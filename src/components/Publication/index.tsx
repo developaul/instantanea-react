@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useCallback, useContext } from "react"
 import {
   Avatar,
   Button,
@@ -12,22 +12,43 @@ import {
   InputAdornment,
   InputBase,
   Theme,
+  Tooltip,
   Typography,
 } from "@mui/material"
 import {
   MoreVert as MoreVertIcon,
   Favorite as FavoriteIcon,
+  FavoriteBorder as FavoriteBorderIcon
 } from '@mui/icons-material'
 import { makeStyles } from "@mui/styles"
+import { useSnackbar } from "notistack"
 
 import { UserContext } from "../../Providers/UserProvider"
+import { useCreatePublicationLike, useRemovePublicationLike } from "../../apollo/publicationLike/hooks"
 
 import { Publication as IPublication } from '../../interfaces'
 
-const Publication = ({ media, description, createdBy }: IPublication) => {
+const Publication = ({ media, description, createdBy, _id, currentUserLikes, likes }: IPublication) => {
   const classes = useStyles()
+  const { enqueueSnackbar } = useSnackbar()
 
   const { firstName, lastName, userName, photo } = useContext(UserContext)
+
+  const [createPublicationLike] = useCreatePublicationLike({
+    onError: error => { enqueueSnackbar(error.message, { variant: 'error' }) }
+  })
+
+  const [removePublicationLike] = useRemovePublicationLike({
+    onError: error => { enqueueSnackbar(error.message, { variant: 'error' }) }
+  })
+
+  const _handleCreatePublicationLike = useCallback(() => {
+    createPublicationLike({ variables: { publicationId: _id } })
+  }, [_id, createPublicationLike])
+
+  const _handleRemovePublicationLike = useCallback(() => {
+    removePublicationLike({ variables: { publicationId: _id } })
+  }, [_id, removePublicationLike])
 
   return (
     <Grid item>
@@ -62,9 +83,15 @@ const Publication = ({ media, description, createdBy }: IPublication) => {
         <CardActions disableSpacing>
           <Grid justifyContent='space-between' container>
             <Grid item>
-              <IconButton aria-label="add to favorites">
-                <FavoriteIcon />
-              </IconButton>
+              {(currentUserLikes) ? (
+                <IconButton onClick={_handleRemovePublicationLike}>
+                  <FavoriteIcon />
+                </IconButton>
+              ) : (
+                <IconButton onClick={_handleCreatePublicationLike}>
+                  <FavoriteBorderIcon />
+                </IconButton>
+              )}
 
               <IconButton aria-label="comment">
                 <img src="assets/comentOutline.svg" alt="Comment" />
@@ -86,9 +113,15 @@ const Publication = ({ media, description, createdBy }: IPublication) => {
         <CardContent
           className={classes.cardContentRoot}
         >
-          <Typography variant="subtitle1">
-            49,643 Me gusta
-          </Typography>
+          <Tooltip
+            title='title tooltip'
+          >
+            <Typography
+              className={classes.like}
+              variant="subtitle1">
+              {likes.length} Me gusta
+            </Typography>
+          </Tooltip>
 
           <Typography
             variant="subtitle1"
@@ -160,6 +193,13 @@ const useStyles = makeStyles(({ palette, spacing }: Theme) => ({
   cardContentRoot: {
     '&.MuiCardContent-root': {
       paddingTop: spacing(0)
+    }
+  },
+  like: {
+    display: 'table',
+    '&:hover': {
+      textDecoration: 'underline',
+      cursor: 'pointer'
     }
   }
 }), { name: 'Publication' })

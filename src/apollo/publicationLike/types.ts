@@ -12,8 +12,8 @@ export const CREATE_PUBLICATION_LIKE = gql`
 `
 
 export const REMOVE_PUBLICATION_LIKE = gql`
-  mutation removePublicationLike($publicationLikeId: ID!) {
-    removePublicationLike(publicationLikeId: $publicationLikeId) {
+  mutation removePublicationLike($publicationId: ID!) {
+    removePublicationLike(publicationId: $publicationId) {
       ...publicationLikeFragment
     }
   }
