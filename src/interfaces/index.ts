@@ -64,6 +64,7 @@ export interface Publication {
   media: string
   description: string,
   currentUserLikes: boolean,
+  createdAt: string,
   likes: PublicationLike[]
 }
 

@@ -8,6 +8,7 @@ export const PUBLICATION_FRAGMENT = gql`
     description,
     media,
     currentUserLikes,
+    createdAt
     likes {
       _id,
       createdBy {

@@ -22,13 +22,19 @@ import {
 } from '@mui/icons-material'
 import { makeStyles } from "@mui/styles"
 import { useSnackbar } from "notistack"
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import 'dayjs/locale/es'
 
 import { UserContext } from "../../Providers/UserProvider"
 import { useCreatePublicationLike, useRemovePublicationLike } from "../../apollo/publicationLike/hooks"
 
 import { Publication as IPublication } from '../../interfaces'
 
-const Publication = ({ media, description, createdBy, _id, currentUserLikes, likes }: IPublication) => {
+dayjs.extend(relativeTime)
+dayjs.locale('es')
+
+const Publication = ({ media, description, createdBy, _id, currentUserLikes, likes, createdAt }: IPublication) => {
   const classes = useStyles()
   const { enqueueSnackbar } = useSnackbar()
 
@@ -162,7 +168,7 @@ const Publication = ({ media, description, createdBy, _id, currentUserLikes, lik
           <Typography
             className={classes.secondary300}
             variant="caption">
-            Hace 31 minutos
+            {dayjs(new Date(Number(createdAt))).fromNow()}
           </Typography>
         </CardContent>
 
