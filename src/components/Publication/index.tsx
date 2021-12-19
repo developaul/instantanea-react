@@ -113,15 +113,32 @@ const Publication = ({ media, description, createdBy, _id, currentUserLikes, lik
         <CardContent
           className={classes.cardContentRoot}
         >
-          <Tooltip
-            title='title tooltip'
-          >
+          {(likes.length) ? (
+            <Tooltip
+              title={
+                likes.map(({ createdBy, _id }) => {
+                  return (
+                    <Typography
+                      key={_id}
+                    >
+                      {createdBy.userName}
+                    </Typography>
+                  )
+                })
+              }
+            >
+              <Typography
+                className={classes.like}
+                variant="subtitle1">
+                {likes.length} Me gusta
+              </Typography>
+            </Tooltip>
+          ) : (
             <Typography
-              className={classes.like}
               variant="subtitle1">
               {likes.length} Me gusta
             </Typography>
-          </Tooltip>
+          )}
 
           <Typography
             variant="subtitle1"

@@ -48,8 +48,6 @@ export const useRemovePublicationLike = (params?: MutationHookOptions) =>
           const index = publications.findIndex(el => el._id === publicationLike.publicationId)
 
           if (index !== -1) {
-            console.log({ likes: publications[index], publicationLike })
-
             publications[index].likes = publications[index].likes.filter(el => el._id !== publicationLike._id)
             publications[index].currentUserLikes = false
           }
