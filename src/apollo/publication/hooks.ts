@@ -1,4 +1,11 @@
-import { MutationHookOptions, useMutation, QueryHookOptions, useQuery, QueryResult } from '@apollo/client';
+import {
+  MutationHookOptions,
+  useMutation,
+  QueryHookOptions,
+  useQuery,
+  QueryResult
+} from '@apollo/client';
+import produce from 'immer';
 
 import {
   CREATE_PUBLICATION,
@@ -7,13 +14,28 @@ import {
   GET_SHORT_PUBLICATIONS
 } from "./types";
 
-import { Publication, ShortPublication } from '../../interfaces';
+import {
+  Publication,
+  ShortPublication
+} from '../../interfaces';
 
 export const useCreatePublication = (params?: MutationHookOptions) =>
   useMutation(CREATE_PUBLICATION, {
-    update: (cache, result) => {
-      console.log("🚀 ~ result", result)
+    update: (cache, { data: { createPublication: publication } }) => {
+      const queryParams = {
+        query: GET_PUBLICATIONS,
+        variables: {
+          page: 1,
+          limit: 15
+        }
+      }
 
+      cache.writeQuery({
+        ...queryParams,
+        data: produce(cache.readQuery(queryParams), ({ getPublications: publications }: { getPublications: Publication[] }) => {
+          publications.unshift(publication)
+        })
+      })
     },
     ...params
   })

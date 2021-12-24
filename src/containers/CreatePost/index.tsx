@@ -32,8 +32,11 @@ const CreatePost = ({
 
   const { enqueueSnackbar } = useSnackbar()
 
-  const [createPublication] = useCreatePublication({
-    onError: error => { enqueueSnackbar(error.message, { variant: 'error' }) }
+  const [createPublication, { loading }] = useCreatePublication({
+    onError: error => { enqueueSnackbar(error.message, { variant: 'error' }) },
+    onCompleted: () => {
+      onClose()
+    }
   })
 
   const [post, setPost] = useState<PostCreationState>({
@@ -110,7 +113,7 @@ const CreatePost = ({
       PaperProps={{
         className: classes.paper
       }}
-      onClose={onClose}
+      onClose={loading ? undefined : onClose}
       open={open}>
       <DialogTitle
         className={clsx(classes.dialogTitle, {

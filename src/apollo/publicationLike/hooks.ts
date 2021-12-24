@@ -17,7 +17,7 @@ export const useCreatePublicationLike = (params?: MutationHookOptions) =>
       }
 
       cache.writeQuery({
-        query: GET_PUBLICATIONS,
+        ...queryParams,
         data: produce(cache.readQuery(queryParams), ({ getPublications: publications }: { getPublications: Publication[] }) => {
           const index = publications.findIndex(el => el._id === publicationLike.publicationId)
 
@@ -43,7 +43,7 @@ export const useRemovePublicationLike = (params?: MutationHookOptions) =>
       }
 
       cache.writeQuery({
-        query: GET_PUBLICATIONS,
+        ...queryParams,
         data: produce(cache.readQuery(queryParams), ({ getPublications: publications }: { getPublications: Publication[] }) => {
           const index = publications.findIndex(el => el._id === publicationLike.publicationId)
 
