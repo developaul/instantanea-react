@@ -1,3 +1,4 @@
+import { QueryResult } from '@apollo/client';
 import { LazyExoticComponent } from 'react';
 
 export type JSXComponent = () => JSX.Element
@@ -76,4 +77,23 @@ export interface PublicationLike {
 
 export interface ProfileParams {
   userName: string
+}
+
+export interface Pagination {
+  limit: number,
+  page: number,
+  totalPages: number,
+  nextPage: number,
+  prevPage: number,
+  hasPrevPage: boolean,
+  hasNextPage: boolean
+}
+
+export interface PublicationsPagination {
+  docs: Publication[],
+  info: Pagination
+}
+
+export interface CustomQueryResult<T> extends QueryResult<T> {
+  customFetchMore: (variables: any) => void
 }

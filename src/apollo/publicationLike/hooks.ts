@@ -1,7 +1,7 @@
 import { MutationHookOptions, useMutation } from '@apollo/client';
 import produce from 'immer';
 
-import { Publication } from '../../interfaces';
+import { PublicationsPagination } from '../../interfaces';
 import { GET_PUBLICATIONS } from '../publication/types';
 import { CREATE_PUBLICATION_LIKE, REMOVE_PUBLICATION_LIKE } from './types';
 
@@ -18,12 +18,12 @@ export const useCreatePublicationLike = (params?: MutationHookOptions) =>
 
       cache.writeQuery({
         ...queryParams,
-        data: produce(cache.readQuery(queryParams), ({ getPublications: publications }: { getPublications: Publication[] }) => {
-          const index = publications.findIndex(el => el._id === publicationLike.publicationId)
+        data: produce(cache.readQuery(queryParams), ({ getPublications }: { getPublications: PublicationsPagination }) => {
+          const index = getPublications.docs.findIndex(el => el._id === publicationLike.publicationId)
 
           if (index !== -1) {
-            publications[index].likes.push(publicationLike)
-            publications[index].currentUserLikes = true
+            getPublications.docs[index].likes.push(publicationLike)
+            getPublications.docs[index].currentUserLikes = true
           }
         })
       })
@@ -44,12 +44,12 @@ export const useRemovePublicationLike = (params?: MutationHookOptions) =>
 
       cache.writeQuery({
         ...queryParams,
-        data: produce(cache.readQuery(queryParams), ({ getPublications: publications }: { getPublications: Publication[] }) => {
-          const index = publications.findIndex(el => el._id === publicationLike.publicationId)
+        data: produce(cache.readQuery(queryParams), ({ getPublications }: { getPublications: PublicationsPagination }) => {
+          const index = getPublications.docs.findIndex(el => el._id === publicationLike.publicationId)
 
           if (index !== -1) {
-            publications[index].likes = publications[index].likes.filter(el => el._id !== publicationLike._id)
-            publications[index].currentUserLikes = false
+            getPublications.docs[index].likes = getPublications.docs[index].likes.filter(el => el._id !== publicationLike._id)
+            getPublications.docs[index].currentUserLikes = false
           }
         })
       })

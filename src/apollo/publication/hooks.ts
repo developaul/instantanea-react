@@ -15,7 +15,9 @@ import {
 } from "./types";
 
 import {
+  CustomQueryResult,
   Publication,
+  PublicationsPagination,
   ShortPublication
 } from '../../interfaces';
 
@@ -32,16 +34,42 @@ export const useCreatePublication = (params?: MutationHookOptions) =>
 
       cache.writeQuery({
         ...queryParams,
-        data: produce(cache.readQuery(queryParams), ({ getPublications: publications }: { getPublications: Publication[] }) => {
-          publications.unshift(publication)
+        data: produce(cache.readQuery(queryParams), ({ getPublications }: { getPublications: PublicationsPagination }) => {
+          getPublications.docs.unshift(publication)
         })
       })
     },
     ...params
   })
 
-export const useGetPublications = (params?: QueryHookOptions): QueryResult<{ getPublications: Publication[] }> =>
-  useQuery(GET_PUBLICATIONS, params)
+
+export const useGetPublications = (params?: QueryHookOptions): CustomQueryResult<{ getPublications: PublicationsPagination }> => {
+  const { fetchMore, ...rest } = useQuery(GET_PUBLICATIONS, params)
+
+  const customFetchMore = (variables: any) => {
+    fetchMore({
+      variables,
+      updateQuery: ({ getPublications: prevPublications }, { fetchMoreResult: { getPublications: currentPublications } }) => ({
+        getPublications: {
+          info: {
+            ...currentPublications.info
+          },
+          docs: [
+            ...prevPublications.docs,
+            ...currentPublications.docs
+          ]
+        }
+
+      })
+    })
+  }
+
+  return {
+    ...rest,
+    fetchMore,
+    customFetchMore
+  }
+}
 
 export const useGetShortPublications = (params?: QueryHookOptions): QueryResult<{ getShortPublications: ShortPublication[] }> =>
   useQuery(GET_SHORT_PUBLICATIONS, params)

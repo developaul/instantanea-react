@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { PAGINATION_FRAGMENT } from '../general/fragment';
 import { PUBLICATION_FRAGMENT } from './fragment';
 
 export const CREATE_PUBLICATION = gql`
@@ -13,10 +14,16 @@ export const CREATE_PUBLICATION = gql`
 export const GET_PUBLICATIONS = gql`
   query getPublications($limit: Int!, $page: Int!) {
     getPublications(limit: $limit, page: $page) {
-      ...publicationFragment
+      docs {
+        ...publicationFragment
+      }
+      info { 
+        ...paginationFragment
+      }
     }
   }
   ${PUBLICATION_FRAGMENT}
+  ${PAGINATION_FRAGMENT}
 `
 
 export const GET_SHORT_PUBLICATIONS = gql`
